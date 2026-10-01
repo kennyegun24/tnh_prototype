@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TNH Collections — contemporary African tailoring and fine fragrance, made in Accra.">
+  <meta name="theme-color" content="#07192f">
+  <title>TNH Collections — Made in Accra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Italiana&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #07192f;
+      --navy-2: #0d2948;
+      --ink: #09111b;
+      --ivory: #f4f0e8;
+      --white: #fff;
+      --sand: #d7c9b4;
+      --gold: #bd8a44;
+      --line: rgba(7, 25, 47, .18);
+      --ease: cubic-bezier(.2, .75, .3, 1);
+    }
+
+    * { box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) var(--navy);
+    }
+    *::-webkit-scrollbar { width: 11px; height: 11px; }
+    *::-webkit-scrollbar-track { background: var(--navy); }
+    *::-webkit-scrollbar-thumb {
+      min-height: 54px;
+      background: var(--gold);
+      border: 3px solid var(--navy);
+      border-radius: 2px;
+    }
+    *::-webkit-scrollbar-thumb:hover { background: var(--sand); }
+    *::-webkit-scrollbar-corner { background: var(--navy); }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--ivory);
+      font-family: "DM Sans", Arial, sans-serif;
+      overflow-x: hidden;
+    }
+    body.no-scroll { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    img { display: block; width: 100%; }
+    section { scroll-margin-top: 82px; }
+    .serif { font-family: "Italiana", Georgia, serif; font-weight: 400; }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 18px;
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 32px; height: 1px; background: currentColor; }
+    .button {
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 0 23px;
+      border: 1px solid var(--navy);
+      background: var(--navy);
+      color: var(--white);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      transition: background .25s, color .25s, transform .25s;
+    }
+    .button:hover { background: transparent; color: var(--navy); transform: translateY(-2px); }
+    .button.light { border-color: var(--white); background: var(--white); color: var(--navy); }
+    .button.light:hover { background: transparent; color: var(--white); }
+    .button.ghost { background: transparent; color: var(--navy); }
+    .button.ghost:hover { background: var(--navy); color: var(--white); }
+    .button svg { width: 17px; height: 17px; }
+
+    .announcement {
+      height: 31px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 5vw;
+      color: var(--white);
+      background: var(--navy);
+      font-size: 9px;
+      letter-spacing: .22em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      height: 77px;
+      display: grid;
+      grid-template-columns: 170px 1fr 170px;
+      align-items: center;
+      padding: 0 4.5vw;
+      color: var(--navy);
+      background: rgba(244, 240, 232, .96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: max-content;
+    }
+    .brand-mark { width:46px; height:46px; display:block; overflow:hidden; background:var(--white); }
+    .brand-mark img { width:100%; height:100%; object-fit:contain; }
+    .brand-copy strong { display: block; font-family: "Italiana", Georgia, serif; font-size: 16px; font-weight: 400; letter-spacing: .08em; }
+    .brand-copy small { display: block; margin-top: 2px; font-size: 7px; letter-spacing: .24em; text-transform: uppercase; }
+    .desktop-nav { display: flex; align-items: center; justify-content: center; gap: clamp(22px, 3.6vw, 54px); }
+    .desktop-nav a {
+      position: relative;
+      padding: 28px 0 25px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+    .desktop-nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 100%;
+      bottom: 20px;
+      height: 1px;
+      background: var(--gold);
+      transition: right .25s;
+    }
+    .desktop-nav a:hover::after, .desktop-nav a.active::after { right: 0; }
+    .header-actions { display: flex; justify-content: flex-end; align-items: center; gap: 17px; }
+    .icon-button {
+      position: relative;
+      width: 39px;
+      height: 39px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+    .icon-button svg { width: 20px; height: 20px; }
+    .cart-count {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 17px;
+      height: 17px;
+      display: grid;
+      place-items: center;
+      padding: 0 4px;
+      color: var(--white);
+      background: var(--gold);
+      border-radius: 50%;
+      font-size: 9px;
+      transform: scale(0);
+      transition: transform .25s var(--ease);
+    }
+    .cart-count.visible { transform: scale(1); }
+    .menu-toggle { display: none; }
+
+    .hero {
+      min-height: calc(100vh - 108px);
+      display: grid;
+      grid-template-columns: 44% 56%;
+      background: var(--ivory);
+    }
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(55px, 7vw, 110px) 5vw;
+    }
+    .hero h1 {
+      max-width: 650px;
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(54px, 7vw, 112px);
+      line-height: .86;
+      letter-spacing: -.045em;
+    }
+    .hero h1 em { display: block; color: var(--gold); font-weight: 400; }
+    .hero-intro {
+      max-width: 430px;
+      margin: 30px 0 34px;
+      color: #35404d;
+      font-size: 14px;
+      line-height: 1.75;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid currentColor;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .hero-note {
+      position: absolute;
+      left: 5vw;
+      bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: rgba(7, 25, 47, .58);
+      font-size: 9px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .hero-note::before { content: ""; width: 38px; height: 1px; background: var(--gold); }
+    .hero-media { position: relative; min-height: 610px; overflow: hidden; background: var(--navy-2); }
+    .hero-media img { height: 100%; object-fit: cover; object-position: center 31%; transition: transform 1.2s var(--ease); }
+    .hero:hover .hero-media img { transform: scale(1.025); }
+    .hero-media::after {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(255,255,255,.36);
+      pointer-events: none;
+    }
+    .hero-stamp {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 188px;
+      height: 188px;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      color: var(--white);
+      background: var(--navy);
+      text-align: center;
+    }
+    .hero-stamp strong { font-family: "Italiana", Georgia, serif; font-size: 38px; font-weight: 400; line-height: 1; }
+    .hero-stamp span { display: block; margin-top: 9px; font-size: 9px; letter-spacing: .18em; line-height: 1.5; text-transform: uppercase; }
+
+    .ticker { overflow: hidden; color: var(--white); background: var(--gold); border-top: 1px solid rgba(255,255,255,.3); }
+    .ticker-track { width: max-content; display: flex; align-items: center; padding: 13px 0; animation: marquee 22s linear infinite; }
+    .ticker span { display: flex; align-items: center; gap: 27px; padding-right: 27px; font-size: 9px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; }
+    .ticker i { width: 5px; height: 5px; border: 1px solid currentColor; transform: rotate(45deg); }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    .intro-section {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 9vw;
+      padding: 130px 6vw 120px;
+      border-bottom: 1px solid var(--line);
+    }
+    .intro-label { color: var(--navy); font-size: 11px; font-weight: 600; letter-spacing: .17em; text-transform: uppercase; }
+    .intro-index { display: block; margin-bottom: 20px; color: var(--gold); font-family: "Italiana", Georgia, serif; font-size: 48px; font-weight: 400; }
+    .intro-section h2 { max-width: 900px; margin: 0; color: var(--navy); font-size: clamp(42px, 5.4vw, 83px); line-height: .99; letter-spacing: -.03em; }
+    .intro-section h2 span { color: var(--gold); }
+    .intro-copy { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; margin-top: 48px; }
+    .intro-copy p { margin: 0; color: #49525b; font-size: 13px; line-height: 1.8; }
+
+    .catalogue { padding: 118px 4.5vw 130px; background: var(--white); }
+    .section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; margin-bottom: 44px; }
+    .section-head h2 { margin: 0; color: var(--navy); font-size: clamp(45px, 5vw, 76px); line-height: .95; letter-spacing: -.03em; }
+    .section-head p { max-width: 350px; margin: 0 0 4px; color: #59616a; font-size: 13px; line-height: 1.7; }
+    .product-grid { display: grid; grid-template-columns: 1.15fr 1fr 1fr; border-top: 1px solid var(--line); }
+    .product-card { position: relative; min-width: 0; padding: 24px 18px 0; border-right: 1px solid var(--line); }
+    .product-card:first-child { padding-left: 0; }
+    .product-card:last-child { padding-right: 0; border-right: 0; }
+    .product-image { position: relative; aspect-ratio: .78; overflow: hidden; background: #e6e2db; }
+    .product-card.featured .product-image { aspect-ratio: .92; }
+    .product-image img { height: 100%; object-fit: cover; transition: transform .7s var(--ease); }
+    .product-card:hover .product-image img { transform: scale(1.045); }
+    .product-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      z-index: 2;
+      padding: 7px 9px;
+      color: var(--navy);
+      background: var(--white);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .quick-add {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      color: var(--white);
+      background: var(--navy);
+      cursor: pointer;
+      transform: translateY(100%);
+      transition: transform .28s var(--ease), background .2s;
+    }
+    .product-card:hover .quick-add, .quick-add:focus-visible { transform: translateY(0); }
+    .quick-add:hover { background: var(--gold); }
+    .quick-add svg { width: 18px; height: 18px; }
+    .product-info { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 20px 2px 12px; }
+    .product-title { margin: 0 0 6px; color: var(--navy); font-family: "Italiana", Georgia, serif; font-size: 23px; font-weight: 400; }
+    .product-type { margin: 0; color: #777f86; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; }
+    .product-price { color: var(--navy); font-size: 12px; font-weight: 600; white-space: nowrap; }
+    .catalogue-foot { display: flex; justify-content: center; margin-top: 48px; }
+
+    .cloth-feature { display: grid; grid-template-columns: 1fr 1fr; min-height: 760px; background: var(--navy); color: var(--white); }
+    .cloth-visual { position: relative; overflow: hidden; }
+    .cloth-visual img { height: 100%; object-fit: cover; object-position: center top; }
+    .cloth-visual::after { content: ""; position: absolute; inset: 22px; border: 1px solid rgba(255,255,255,.32); }
+    .cloth-caption {
+      position: absolute;
+      left: 22px;
+      bottom: 22px;
+      z-index: 2;
+      padding: 18px 20px;
+      color: var(--navy);
+      background: var(--ivory);
+      font-size: 9px;
+      letter-spacing: .16em;
+      line-height: 1.7;
+      text-transform: uppercase;
+    }
+    .cloth-copy { display: flex; flex-direction: column; justify-content: center; padding: 8vw; }
+    .cloth-copy .eyebrow { color: var(--sand); }
+    .cloth-copy h2 { max-width: 650px; margin: 0; font-size: clamp(47px, 5.6vw, 86px); line-height: .93; letter-spacing: -.035em; }
+    .cloth-copy > p { max-width: 470px; margin: 33px 0 40px; color: rgba(255,255,255,.7); font-size: 13px; line-height: 1.8; }
+    .detail-list { margin: 0 0 42px; padding: 0; list-style: none; border-top: 1px solid rgba(255,255,255,.2); }
+    .detail-list li { display: grid; grid-template-columns: 42px 1fr; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,.2); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+    .detail-list span { color: var(--gold); }
+    .cloth-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .cloth-actions .text-link { margin-left: 8px; color: var(--white); }
+
+    .perfume-feature { position: relative; min-height: 830px; display: grid; grid-template-columns: .9fr 1.1fr; overflow: hidden; background: #061424; color: var(--white); }
+    .perfume-copy { position: relative; z-index: 3; display: flex; flex-direction: column; justify-content: center; padding: 8vw 4vw 8vw 7vw; }
+    .perfume-copy .eyebrow { color: #d2a767; }
+    .perfume-copy h2 { margin: 0; font-size: clamp(58px, 8vw, 122px); line-height: .82; letter-spacing: -.045em; }
+    .perfume-copy h2 em { display: block; margin-left: 14%; color: #d2a767; font-weight: 400; }
+    .perfume-copy > p { max-width: 430px; margin: 35px 0 28px; color: rgba(255,255,255,.7); font-size: 13px; line-height: 1.8; }
+    .scent-notes { display: flex; gap: 30px; margin-bottom: 38px; }
+    .scent-note { padding-left: 15px; border-left: 1px solid rgba(255,255,255,.25); }
+    .scent-note strong { display: block; margin-bottom: 6px; color: #d2a767; font-family: "Italiana", Georgia, serif; font-size: 19px; font-weight: 400; }
+    .scent-note small { color: rgba(255,255,255,.55); font-size: 8px; letter-spacing: .13em; text-transform: uppercase; }
+    .perfume-media { position: relative; min-height: 680px; }
+    .perfume-media img { height: 100%; object-fit: cover; object-position: center; filter: saturate(.86) contrast(1.05); }
+    .perfume-frame { position: absolute; inset: 6%; border: 1px solid rgba(210,167,103,.48); pointer-events: none; }
+    .perfume-seal {
+      position: absolute;
+      top: 9%;
+      left: -45px;
+      width: 94px;
+      height: 94px;
+      display: grid;
+      place-items: center;
+      padding: 15px;
+      border: 1px solid #d2a767;
+      border-radius: 50%;
+      background: #061424;
+      color: #d2a767;
+      font-size: 8px;
+      letter-spacing: .12em;
+      line-height: 1.5;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .bespoke { padding: 120px 6vw 130px; background: var(--ivory); }
+    .bespoke .section-head { align-items: flex-start; }
+    .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 64px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .process-step { min-height: 270px; padding: 30px; border-right: 1px solid var(--line); }
+    .process-step:last-child { border-right: 0; }
+    .process-step span { color: var(--gold); font-family: "Italiana", Georgia, serif; font-size: 40px; }
+    .process-step h3 { margin: 52px 0 12px; color: var(--navy); font-family: "Italiana", Georgia, serif; font-size: 28px; font-weight: 400; }
+    .process-step p { max-width: 310px; margin: 0; color: #5c646c; font-size: 12px; line-height: 1.75; }
+
+    .location-strip { display: grid; grid-template-columns: 1.05fr .95fr; background: var(--gold); color: var(--navy); }
+    .location-copy { padding: 76px 6vw; }
+    .location-copy h2 { max-width: 680px; margin: 0; font-size: clamp(43px, 5vw, 74px); line-height: .96; }
+    .location-copy p { max-width: 510px; margin: 24px 0 30px; font-size: 13px; line-height: 1.7; }
+    .location-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-content: center; padding: 62px 6vw; border-left: 1px solid rgba(7,25,47,.3); }
+    .location-meta small { display: block; margin-bottom: 8px; font-size: 8px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; }
+    .location-meta strong { font-family: "Italiana", Georgia, serif; font-size: 24px; font-weight: 400; }
+
+    footer { padding: 85px 5vw 27px; color: var(--white); background: var(--navy); }
+    .footer-main { display: grid; grid-template-columns: 1.3fr .7fr .7fr; gap: 70px; padding-bottom: 70px; }
+    .footer-brand { max-width: 520px; }
+    .footer-brand h2 { margin: 0 0 22px; font-size: clamp(43px, 5vw, 72px); line-height: .95; }
+    .footer-brand p { max-width: 430px; margin: 0 0 28px; color: rgba(255,255,255,.63); font-size: 12px; line-height: 1.75; }
+    .subscribe { display: flex; max-width: 470px; border-bottom: 1px solid rgba(255,255,255,.45); }
+    .subscribe input { flex: 1; min-width: 0; padding: 15px 2px; border: 0; outline: 0; color: var(--white); background: transparent; font-size: 12px; }
+    .subscribe input::placeholder { color: rgba(255,255,255,.5); }
+    .subscribe button { width: 48px; border: 0; color: var(--white); background: transparent; cursor: pointer; }
+    .footer-col h3 { margin: 0 0 25px; color: var(--sand); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; }
+    .footer-col a { display: block; width: max-content; margin: 0 0 14px; color: rgba(255,255,255,.72); font-size: 12px; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,.14); color: rgba(255,255,255,.42); font-size: 8px; letter-spacing: .12em; text-transform: uppercase; }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 70;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(3, 11, 21, .76);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .25s, visibility .25s;
+    }
+    .overlay.open { opacity: 1; visibility: visible; }
+    .modal {
+      width: min(880px, 100%);
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      color: var(--ink);
+      background: var(--ivory);
+      transform: translateY(18px);
+      transition: transform .3s var(--ease);
+    }
+    .overlay.open .modal { transform: translateY(0); }
+    .modal-image { min-height: 520px; background: #ddd8cf; }
+    .modal-image img { height: 100%; object-fit: cover; }
+    .modal-content { position: relative; display: flex; flex-direction: column; justify-content: center; padding: 58px; }
+    .modal-close { position: absolute; top: 15px; right: 15px; }
+    .modal-content h3 { margin: 0 0 10px; color: var(--navy); font-family: "Italiana", Georgia, serif; font-size: 46px; font-weight: 400; }
+    .modal-price { color: var(--gold); font-size: 13px; font-weight: 600; letter-spacing: .08em; }
+    .modal-content p { margin: 24px 0; color: #565e66; font-size: 13px; line-height: 1.75; }
+    .size-label { margin-bottom: 10px; font-size: 9px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; }
+    .sizes { display: flex; gap: 8px; margin-bottom: 28px; }
+    .size-button { width: 42px; height: 42px; border: 1px solid var(--line); background: transparent; cursor: pointer; }
+    .size-button.active, .size-button:hover { color: var(--white); background: var(--navy); }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 90;
+      width: min(420px, 100%);
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: 28px;
+      background: var(--ivory);
+      box-shadow: -20px 0 60px rgba(0,0,0,.18);
+      transform: translateX(105%);
+      transition: transform .35s var(--ease);
+    }
+    .cart-drawer.open { transform: translateX(0); }
+    .cart-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+    .cart-header h2 { margin: 0; color: var(--navy); font-family: "Italiana", Georgia, serif; font-size: 31px; font-weight: 400; }
+    .cart-items { flex: 1; overflow: auto; padding: 18px 0; }
+    .empty-cart { display: grid; place-items: center; height: 100%; color: #68717a; font-size: 12px; text-align: center; }
+    .cart-item { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .cart-item img { width: 72px; height: 86px; object-fit: cover; }
+    .cart-item h4 { margin: 5px 0 7px; color: var(--navy); font-family: "Italiana", Georgia, serif; font-size: 19px; font-weight: 400; }
+    .cart-item p { margin: 0; color: #6a727a; font-size: 10px; }
+    .remove-item { align-self: start; border: 0; background: transparent; cursor: pointer; color: #7a7f84; }
+    .cart-footer { padding-top: 19px; border-top: 1px solid var(--line); }
+    .cart-total { display: flex; justify-content: space-between; margin-bottom: 18px; color: var(--navy); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+    .cart-footer .button { width: 100%; }
+    .toast {
+      position: fixed;
+      z-index: 110;
+      left: 50%;
+      bottom: 28px;
+      padding: 13px 19px;
+      color: var(--white);
+      background: var(--navy);
+      font-size: 10px;
+      letter-spacing: .08em;
+      transform: translate(-50%, 30px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform .25s, opacity .25s;
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    .mobile-panel { display: none; }
+
+    @media (max-width: 980px) {
+      .site-header { grid-template-columns: 1fr auto; padding: 0 24px; }
+      .desktop-nav { display: none; }
+      .menu-toggle { display: grid; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-copy { min-height: 570px; padding: 75px 7vw 90px; }
+      .hero-media { min-height: 690px; }
+      .hero-note { left: 7vw; }
+      .intro-section { grid-template-columns: 1fr; gap: 46px; }
+      .product-grid { grid-template-columns: 1.15fr 1fr; }
+      .product-card:last-child { display: none; }
+      .cloth-feature, .perfume-feature { grid-template-columns: 1fr; }
+      .cloth-visual { min-height: 690px; }
+      .cloth-copy { min-height: 680px; }
+      .perfume-media { order: -1; min-height: 690px; }
+      .perfume-seal { left: auto; right: 7%; top: auto; bottom: -45px; }
+      .footer-main { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+      .mobile-panel {
+        position: fixed;
+        inset: 108px 0 0;
+        z-index: 60;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 9vw;
+        color: var(--white);
+        background: var(--navy);
+        transform: translateX(100%);
+        transition: transform .35s var(--ease);
+      }
+      .mobile-panel.open { transform: translateX(0); }
+      .mobile-panel a { padding: 17px 0; border-bottom: 1px solid rgba(255,255,255,.16); font-family: "Italiana", Georgia, serif; font-size: clamp(34px, 8vw, 52px); }
+      .mobile-panel small { margin-top: 35px; color: var(--sand); font-size: 9px; letter-spacing: .15em; text-transform: uppercase; }
+    }
+
+    @media (max-width: 640px) {
+      .announcement { height: 28px; font-size: 7px; }
+      .site-header { height: 70px; padding: 0 16px; }
+      .mobile-panel { inset: 98px 0 0; }
+      .brand-copy { display: none; }
+      .header-actions { gap: 4px; }
+      .hero { min-height: auto; }
+      .hero-copy { min-height: 520px; padding: 58px 24px 84px; }
+      .hero h1 { font-size: clamp(55px, 18vw, 82px); }
+      .hero-intro { margin: 24px 0 29px; font-size: 12px; }
+      .hero-note { left: 24px; bottom: 20px; }
+      .hero-media { min-height: 560px; }
+      .hero-media::after { inset: 11px; }
+      .hero-stamp { width: 145px; height: 145px; }
+      .hero-stamp strong { font-size: 30px; }
+      .intro-section { padding: 90px 24px 85px; }
+      .intro-copy { grid-template-columns: 1fr; margin-top: 34px; }
+      .catalogue { padding: 85px 18px 95px; }
+      .section-head { align-items: flex-start; flex-direction: column; }
+      .product-grid { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 16px; scroll-snap-type: x mandatory; }
+      .product-card, .product-card:first-child, .product-card:last-child { min-width: 82vw; display: block; padding: 17px 0 0; border-right: 0; scroll-snap-align: start; }
+      .product-card .product-image, .product-card.featured .product-image { aspect-ratio: .78; }
+      .quick-add { transform: none; }
+      .cloth-visual { min-height: 530px; }
+      .cloth-visual::after { inset: 11px; }
+      .cloth-copy { min-height: 670px; padding: 80px 24px; }
+      .perfume-feature { min-height: 0; }
+      .perfume-media { min-height: 520px; }
+      .perfume-copy { padding: 90px 24px; }
+      .perfume-copy h2 { font-size: 65px; }
+      .scent-notes { gap: 18px; flex-wrap: wrap; }
+      .bespoke { padding: 90px 24px; }
+      .process-grid { grid-template-columns: 1fr; margin-top: 40px; }
+      .process-step { min-height: auto; padding: 28px 2px 34px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .process-step:last-child { border-bottom: 0; }
+      .process-step h3 { margin-top: 25px; }
+      .location-strip { grid-template-columns: 1fr; }
+      .location-copy, .location-meta { padding: 60px 24px; }
+      .location-meta { border-left: 0; border-top: 1px solid rgba(7,25,47,.3); }
+      footer { padding: 70px 24px 24px; }
+      .footer-main { grid-template-columns: 1fr; gap: 42px; }
+      .footer-brand { grid-column: auto; }
+      .footer-bottom { flex-direction: column; }
+      .modal { grid-template-columns: 1fr; max-height: calc(100dvh - 30px); overflow: auto; }
+      .modal-image { min-height: 280px; height: 37vh; }
+      .modal-content { padding: 38px 26px 30px; }
+      .modal-content h3 { font-size: 37px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement">Complimentary Accra delivery on orders over GH₵ 1,500</div>
+
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="TNH Collections home">
+      <span class="brand-mark"><img src="assets/logo.jpeg" alt=""></span>
+      <span class="brand-copy"><strong>TNH Collections</strong><small>Accra · Ghana</small></span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a class="active" href="#home">Home</a>
+      <a href="catalogue.html">Catalogue</a>
+      <a href="cloth-details.html">Cloth details</a>
+      <a href="perfume-details.html">Perfume details</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-button" aria-label="Search catalogue" onclick="focusCatalogue()">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="6.8"/><path d="m16 16 4.4 4.4"/></svg>
+      </button>
+      <button class="icon-button" aria-label="Open shopping bag" onclick="toggleCart(true)">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M5 8.5h14l-.8 12H5.8L5 8.5Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="icon-button menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" onclick="toggleMenu()">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M3 7h18M3 17h18"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <nav class="mobile-panel" id="mobileMenu" aria-label="Mobile navigation">
+    <a href="#home" onclick="toggleMenu(false)">Home</a>
+    <a href="catalogue.html">Catalogue</a>
+    <a href="cloth-details.html">Cloth details</a>
+    <a href="perfume-details.html">Perfume details</a>
+    <small>Contemporary African clothing & fragrance</small>
+  </nav>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <p class="eyebrow">The new Accra collection · 2026</p>
+        <h1 class="serif">Quietly <em>distinct.</em></h1>
+        <p class="hero-intro">Contemporary African silhouettes, measured to your story. Designed and finished in Accra for men who wear culture with ease.</p>
+        <div class="hero-actions">
+          <a class="button" href="catalogue.html">Explore collection
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
+          </a>
+          <a class="text-link" href="cloth-details.html">Book a fitting</a>
+        </div>
+        <span class="hero-note">Designed with purpose. Made by hand.</span>
+      </div>
+      <div class="hero-media">
+        <img src="assets/Screenshot 2026-10-01 at 13-42-55 (1) Instagram.png" alt="TNH model wearing a deep navy contemporary two-piece set">
+        <div class="hero-stamp"><div><strong>01</strong><span>New season<br>Accra edit</span></div></div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>Made in Accra <i></i> Bespoke tailoring <i></i> Fine fragrance <i></i> Worldwide delivery <i></i> Made in Accra <i></i> Bespoke tailoring <i></i> Fine fragrance <i></i> Worldwide delivery <i></i></span>
+        <span>Made in Accra <i></i> Bespoke tailoring <i></i> Fine fragrance <i></i> Worldwide delivery <i></i> Made in Accra <i></i> Bespoke tailoring <i></i> Fine fragrance <i></i> Worldwide delivery <i></i></span>
+      </div>
+    </div>
+
+    <section class="intro-section" aria-labelledby="intro-title">
+      <div class="intro-label"><span class="intro-index">TH</span>From Accra,<br>with intention.</div>
+      <div>
+        <h2 class="serif" id="intro-title">African heritage,<br><span>cut for now.</span></h2>
+        <div class="intro-copy">
+          <p>TNH Collections brings a contemporary eye to the confidence, ceremony and colour of West African dress. Every line is considered; every finish has a reason.</p>
+          <p>Choose from the ready-to-wear catalogue or make it personal with a custom fit, fabric and detail. Then complete the ritual with a signature scent.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="catalogue" id="catalogue" aria-labelledby="catalogue-title">
+      <div class="section-head">
+        <div><p class="eyebrow">Curated selection</p><h2 class="serif" id="catalogue-title">The house edit.</h2></div>
+        <p>Refined pieces for the everyday, the occasion and every room you intend to own.</p>
+      </div>
+
+      <div class="product-grid" id="productGrid">
+        <article class="product-card featured">
+          <div class="product-image">
+            <span class="product-badge">Signature piece</span>
+            <img src="assets/Screenshot 2026-10-01 at 13-43-05 (1) Instagram.png" alt="TNH model in a structured navy two-piece outfit" loading="lazy">
+            <button class="quick-add" aria-label="View Navy Ease Set" onclick="openProduct(0)">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+          <div class="product-info"><div><h3 class="product-title">Navy Ease Set</h3><p class="product-type">Two piece · Lightweight wool</p></div><span class="product-price">GH₵ 1,850</span></div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image">
+            <span class="product-badge">New</span>
+            <img src="assets/Screenshot 2026-10-01 at 13-43-25 (1) Instagram.png" alt="TNH model in a relaxed shirt and chocolate trousers" loading="lazy">
+            <button class="quick-add" aria-label="View Lakeside Leisure Set" onclick="openProduct(1)">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+          <div class="product-info"><div><h3 class="product-title">Lakeside Leisure Set</h3><p class="product-type">Two piece · Cotton linen</p></div><span class="product-price">GH₵ 1,420</span></div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image">
+            <span class="product-badge">House scent</span>
+            <img src="assets/perfume-product.jpg" alt="Blue-tinted luxury perfume bottle on a lit pedestal" loading="lazy">
+            <button class="quick-add" aria-label="View Midnight Coast perfume" onclick="openProduct(2)">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+          <div class="product-info"><div><h3 class="product-title">Midnight Coast</h3><p class="product-type">Eau de parfum · 75ml</p></div><span class="product-price">GH₵ 680</span></div>
+        </article>
+      </div>
+      <div class="catalogue-foot"><button class="button ghost" onclick="showToast('Full catalogue coming in the next prototype phase')">View all pieces</button></div>
+    </section>
+
+    <section class="cloth-feature" id="cloth-details" aria-labelledby="cloth-title">
+      <div class="cloth-visual">
+        <img src="assets/Screenshot 2026-10-01 at 13-38-20 (1) Instagram.png" alt="TNH model wearing a vivid red relaxed-fit top" loading="lazy">
+        <span class="cloth-caption">The ceremonial edit<br>Look 04 · Accra</span>
+      </div>
+      <div class="cloth-copy">
+        <p class="eyebrow">Cloth details · made to measure</p>
+        <h2 class="serif" id="cloth-title">Your measure.<br>Your presence.</h2>
+        <p>The right piece should feel inevitable. Select your silhouette, fabric and finishing details, then let our Accra atelier shape every line to you.</p>
+        <ul class="detail-list">
+          <li><span>01</span>Personal fabric & colour consultation</li>
+          <li><span>02</span>Precise in-studio or guided measurements</li>
+          <li><span>03</span>Hand-finished details, delivered in 14–21 days</li>
+        </ul>
+        <div class="cloth-actions">
+          <button class="button light" onclick="showToast('Fitting request started — we will contact you shortly')">Request a fitting</button>
+          <a class="text-link" href="catalogue.html">Browse ready-to-wear</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="perfume-feature" id="perfume-details" aria-labelledby="perfume-title">
+      <div class="perfume-copy">
+        <p class="eyebrow">Perfume details · eau de parfum</p>
+        <h2 class="serif" id="perfume-title">Midnight <em>Coast.</em></h2>
+        <p>A deep, luminous fragrance inspired by the Atlantic after dusk—salt on warm skin, smoked cedar and a trail of rare oud.</p>
+        <div class="scent-notes">
+          <div class="scent-note"><strong>Top</strong><small>Bergamot · Sea salt</small></div>
+          <div class="scent-note"><strong>Heart</strong><small>Saffron · Incense</small></div>
+          <div class="scent-note"><strong>Base</strong><small>Oud · Cedar</small></div>
+        </div>
+        <div><button class="button light" onclick="addToCart(2)">Add 75ml to bag · GH₵ 680</button></div>
+      </div>
+      <div class="perfume-media">
+        <img src="assets/navy-perfume.jpg" alt="Midnight Coast perfume concept in a deep navy bottle" loading="lazy">
+        <div class="perfume-frame"></div>
+        <div class="perfume-seal">TNH house fragrance · Accra</div>
+      </div>
+    </section>
+
+    <section class="bespoke" aria-labelledby="bespoke-title">
+      <div class="section-head">
+        <div><p class="eyebrow">The bespoke ritual</p><h2 class="serif" id="bespoke-title">Made personal,<br>never complicated.</h2></div>
+        <p>From first conversation to final press, your custom piece stays in thoughtful hands.</p>
+      </div>
+      <div class="process-grid">
+        <article class="process-step"><span>01</span><h3>Choose your direction</h3><p>Start with a silhouette from our catalogue or bring your own vision. We will refine the idea together.</p></article>
+        <article class="process-step"><span>02</span><h3>Make it yours</h3><p>Select fabric, colour and accents while our tailors translate your measurements into a clean, confident fit.</p></article>
+        <article class="process-step"><span>03</span><h3>Wear your story</h3><p>Collect in Accra or receive worldwide delivery, beautifully packed and ready for the room.</p></article>
+      </div>
+    </section>
+
+    <section class="location-strip" aria-labelledby="visit-title">
+      <div class="location-copy"><h2 class="serif" id="visit-title">See the cloth.<br>Feel the difference.</h2><p>Visit the TNH studio in East Legon for private fittings, catalogue viewings and fragrance discovery.</p><a class="text-link" href="https://www.instagram.com/tnh.collections/" target="_blank" rel="noreferrer">Visit us on Instagram</a></div>
+      <div class="location-meta"><div><small>Studio</small><strong>21 Lakeside Estate<br>Ashaley Botwe, Accra</strong></div><div><small>Appointments</small><strong>Mon — Sat<br>10:00 — 18:00</strong></div></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-main">
+      <div class="footer-brand"><h2 class="serif">Wear the story<br>before you tell it.</h2><p>Join the private list for collection releases, studio appointments and first access to limited cloth.</p><form class="subscribe" onsubmit="subscribe(event)"><input type="email" required placeholder="Your email address" aria-label="Email address"><button aria-label="Subscribe"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></button></form></div>
+      <div class="footer-col"><h3>Explore</h3><a href="catalogue.html">Catalogue</a><a href="cloth-details.html">Custom clothing</a><a href="perfume-details.html">Fine fragrance</a><a href="#home">Our story</a></div>
+      <div class="footer-col"><h3>Connect</h3><a href="https://www.instagram.com/tnh.collections/" target="_blank" rel="noreferrer">Instagram</a><a href="tel:+233240581832">+233 24 058 1832</a><a href="mailto:hello@tnhcollections.com">Email the studio</a><a href="#home">Accra, Ghana</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 TNH Collections. Prototype experience.</span><span>Contemporary authentic · Made in Ghana</span></div>
+  </footer>
+
+  <div class="overlay" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="overlayClick(event)">
+    <div class="modal">
+      <div class="modal-image"><img id="modalImage" src="" alt=""></div>
+      <div class="modal-content">
+        <button class="icon-button modal-close" aria-label="Close product details" onclick="closeProduct()"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="m5 5 14 14M19 5 5 19"/></svg></button>
+        <p class="eyebrow" id="modalType">Clothing</p>
+        <h3 id="modalTitle">Product name</h3>
+        <span class="modal-price" id="modalPrice">GH₵ 0</span>
+        <p id="modalDescription">Product description.</p>
+        <div id="sizeArea"><div class="size-label">Select size</div><div class="sizes"><button class="size-button">S</button><button class="size-button active">M</button><button class="size-button">L</button><button class="size-button">XL</button></div></div>
+        <button class="button" id="modalAdd">Add to bag</button>
+      </div>
+    </div>
+  </div>
+
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping bag" aria-hidden="true">
+    <div class="cart-header"><h2>Your bag</h2><button class="icon-button" aria-label="Close shopping bag" onclick="toggleCart(false)"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="m5 5 14 14M19 5 5 19"/></svg></button></div>
+    <div class="cart-items" id="cartItems"><div class="empty-cart">Your bag is waiting.<br>Choose something distinctly yours.</div></div>
+    <div class="cart-footer"><div class="cart-total"><span>Subtotal</span><span id="cartTotal">GH₵ 0</span></div><button class="button" onclick="showToast('Secure checkout will connect to your payment gateway')">Proceed to checkout</button></div>
+  </aside>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const products = [
+      { name: 'Navy Ease Set', type: 'Signature tailoring', price: 1850, image: 'assets/Screenshot 2026-10-01 at 13-43-05 (1) Instagram.png', description: 'A relaxed two-piece with precise shoulders, a fluid trouser line and quietly refined finishing. Built for movement, presence and warm Accra evenings.' },
+      { name: 'Lakeside Leisure Set', type: 'Contemporary essential', price: 1420, image: 'assets/Screenshot 2026-10-01 at 13-43-25 (1) Instagram.png', description: 'A refined utility shirt and trouser set cut from breathable cotton-linen. Tonal buttons and generous pockets give the everyday uniform a considered edge.' },
+      { name: 'Midnight Coast', type: 'House fragrance · 75ml', price: 680, image: 'assets/perfume-product.jpg', description: 'An eau de parfum inspired by the Atlantic after dusk, balancing bergamot and sea salt with smoked cedar, saffron and rare oud.' }
+    ];
+    const cart = [];
+    let activeProduct = 0;
+    let toastTimer;
+
+    function money(value) { return `GH₵ ${value.toLocaleString()}`; }
+
+    function openProduct(index) {
+      activeProduct = index;
+      const item = products[index];
+      document.getElementById('modalImage').src = item.image;
+      document.getElementById('modalImage').alt = item.name;
+      document.getElementById('modalType').textContent = item.type;
+      document.getElementById('modalTitle').textContent = item.name;
+      document.getElementById('modalPrice').textContent = money(item.price);
+      document.getElementById('modalDescription').textContent = item.description;
+      document.getElementById('sizeArea').style.display = index === 2 ? 'none' : 'block';
+      document.getElementById('modalAdd').onclick = () => { addToCart(index); closeProduct(); };
+      document.getElementById('productModal').classList.add('open');
+      document.body.classList.add('no-scroll');
+    }
+
+    function closeProduct() {
+      document.getElementById('productModal').classList.remove('open');
+      document.body.classList.remove('no-scroll');
+    }
+
+    function overlayClick(event) { if (event.target.id === 'productModal') closeProduct(); }
+
+    function addToCart(index) {
+      cart.push(products[index]);
+      renderCart();
+      showToast(`${products[index].name} added to your bag`);
+    }
+
+    function removeFromCart(index) {
+      const removed = cart.splice(index, 1)[0];
+      renderCart();
+      showToast(`${removed.name} removed`);
+    }
+
+    function renderCart() {
+      const items = document.getElementById('cartItems');
+      const count = document.getElementById('cartCount');
+      count.textContent = cart.length;
+      count.classList.toggle('visible', cart.length > 0);
+      document.getElementById('cartTotal').textContent = money(cart.reduce((sum, item) => sum + item.price, 0));
+      if (!cart.length) {
+        items.innerHTML = '<div class="empty-cart">Your bag is waiting.<br>Choose something distinctly yours.</div>';
+        return;
+      }
+      items.innerHTML = cart.map((item, index) => `
+        <article class="cart-item">
+          <img src="${item.image}" alt="">
+          <div><h4>${item.name}</h4><p>${item.type}</p><p>${money(item.price)}</p></div>
+          <button class="remove-item" aria-label="Remove ${item.name}" onclick="removeFromCart(${index})">×</button>
+        </article>`).join('');
+    }
+
+    function toggleCart(open) {
+      document.getElementById('cartDrawer').classList.toggle('open', open);
+      document.getElementById('cartDrawer').setAttribute('aria-hidden', String(!open));
+      document.body.classList.toggle('no-scroll', open);
+    }
+
+    function toggleMenu(force) {
+      const menu = document.getElementById('mobileMenu');
+      const shouldOpen = typeof force === 'boolean' ? force : !menu.classList.contains('open');
+      menu.classList.toggle('open', shouldOpen);
+      document.getElementById('menuToggle').setAttribute('aria-expanded', String(shouldOpen));
+      document.body.classList.toggle('no-scroll', shouldOpen);
+    }
+
+    function focusCatalogue() {
+      document.getElementById('catalogue').scrollIntoView({ behavior: 'smooth' });
+      showToast('Catalogue search will be connected in the full store');
+    }
+
+    function subscribe(event) {
+      event.preventDefault();
+      event.currentTarget.reset();
+      showToast('Welcome to the TNH private list');
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+
+    document.querySelectorAll('.size-button').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.size-button').forEach(item => item.classList.remove('active'));
+        button.classList.add('active');
+      });
+    });
+
+    const sections = [...document.querySelectorAll('main section[id]')];
+    const navLinks = [...document.querySelectorAll('.desktop-nav a')];
+    const navObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`));
+      });
+    }, { rootMargin: '-35% 0px -58% 0px' });
+    sections.forEach(section => navObserver.observe(section));
+
+    document.addEventListener('keydown', event => {
+      if (event.key !== 'Escape') return;
+      closeProduct();
+      toggleCart(false);
+      toggleMenu(false);
+    });
+  </script>
+</body>
+</html>

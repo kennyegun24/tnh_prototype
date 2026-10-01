@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore TNH Collections — contemporary African ready-to-wear, bespoke tailoring and fine fragrance, made in Accra.">
+  <meta name="theme-color" content="#07192f">
+  <title>Catalogue — TNH Collections</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Italiana&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #07192f;
+      --navy-2: #0d2948;
+      --ink: #09111b;
+      --ivory: #f4f0e8;
+      --white: #fff;
+      --sand: #d7c9b4;
+      --gold: #bd8a44;
+      --line: rgba(7, 25, 47, .18);
+      --ease: cubic-bezier(.2, .75, .3, 1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--gold) var(--navy); }
+    *::-webkit-scrollbar { width: 11px; height: 11px; }
+    *::-webkit-scrollbar-track { background: var(--navy); }
+    *::-webkit-scrollbar-thumb { min-height: 54px; background: var(--gold); border: 3px solid var(--navy); border-radius: 2px; }
+    *::-webkit-scrollbar-thumb:hover { background: var(--sand); }
+    *::-webkit-scrollbar-corner { background: var(--navy); }
+    body { margin: 0; color: var(--ink); background: var(--ivory); font-family: "DM Sans", Arial, sans-serif; overflow-x: hidden; }
+    body.no-scroll { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    button { color: inherit; }
+    img { display: block; width: 100%; }
+    .serif { font-family: "Italiana", Georgia, serif; font-weight: 400; }
+    .eyebrow { display: flex; align-items: center; gap: 12px; margin: 0 0 18px; color: var(--gold); font-size: 10px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 32px; height: 1px; background: currentColor; }
+    .button { min-height: 50px; display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 0 23px; border: 1px solid var(--navy); background: var(--navy); color: var(--white); cursor: pointer; font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; transition: background .25s, color .25s, transform .25s; }
+    .button:hover { background: transparent; color: var(--navy); transform: translateY(-2px); }
+    .button.light { border-color: var(--white); background: var(--white); color: var(--navy); }
+    .button.light:hover { background: transparent; color: var(--white); }
+    .button svg { width: 17px; height: 17px; }
+
+    .announcement { height: 31px; display: flex; align-items: center; justify-content: center; padding: 0 5vw; color: var(--white); background: var(--navy); font-size: 9px; letter-spacing: .22em; text-align: center; text-transform: uppercase; }
+    .site-header { position: sticky; top: 0; z-index: 40; height: 77px; display: grid; grid-template-columns: 170px 1fr 170px; align-items: center; padding: 0 4.5vw; color: var(--navy); background: rgba(244, 240, 232, .96); border-bottom: 1px solid var(--line); backdrop-filter: blur(12px); }
+    .brand { display: inline-flex; align-items: center; gap: 10px; width: max-content; }
+    .brand-mark { width:46px; height:46px; display:block; overflow:hidden; background:var(--white); }
+    .brand-mark img { width:100%; height:100%; object-fit:contain; }
+    .brand-copy strong { display: block; font-family: "Italiana", Georgia, serif; font-size: 16px; font-weight: 400; letter-spacing: .08em; }
+    .brand-copy small { display: block; margin-top: 2px; font-size: 7px; letter-spacing: .24em; text-transform: uppercase; }
+    .desktop-nav { display: flex; align-items: center; justify-content: center; gap: clamp(22px, 3.6vw, 54px); }
+    .desktop-nav a { position: relative; padding: 28px 0 25px; font-size: 11px; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; }
+    .desktop-nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: 20px; height: 1px; background: var(--gold); transition: right .25s; }
+    .desktop-nav a:hover::after, .desktop-nav a.active::after { right: 0; }
+    .header-actions { display: flex; justify-content: flex-end; align-items: center; gap: 17px; }
+    .icon-button { position: relative; width: 39px; height: 39px; display: grid; place-items: center; border: 0; background: transparent; cursor: pointer; }
+    .icon-button svg { width: 20px; height: 20px; }
+    .cart-count { position: absolute; top: 0; right: 0; min-width: 17px; height: 17px; display: grid; place-items: center; padding: 0 4px; color: var(--white); background: var(--gold); border-radius: 50%; font-size: 9px; transform: scale(0); transition: transform .25s var(--ease); }
+    .cart-count.visible { transform: scale(1); }
+    .menu-toggle { display: none; }
+
+    .catalogue-hero { display: grid; grid-template-columns: 1fr .62fr; min-height: 430px; color: var(--white); background: var(--navy); }
+    .hero-copy { display: flex; flex-direction: column; justify-content: center; padding: 74px 6vw 68px; }
+    .hero-copy .eyebrow { color: var(--sand); }
+    .hero-copy h1 { margin: 0; font-size: clamp(72px, 9vw, 144px); line-height: .78; letter-spacing: -.05em; }
+    .hero-copy h1 span { display: block; margin-left: 15%; color: var(--gold); }
+    .hero-copy p:last-child { max-width: 520px; margin: 35px 0 0; color: rgba(255,255,255,.66); font-size: 13px; line-height: 1.75; }
+    .hero-aside { position: relative; display: flex; align-items: flex-end; justify-content: flex-end; min-height: 430px; padding: 43px 4.5vw; overflow: hidden; border-left: 1px solid rgba(255,255,255,.18); }
+    .hero-aside::before, .hero-aside::after { content: ""; position: absolute; border: 1px solid rgba(189,138,68,.55); transform: rotate(45deg); }
+    .hero-aside::before { width: 260px; height: 260px; top: -95px; right: -80px; }
+    .hero-aside::after { width: 145px; height: 145px; top: 74px; right: 72px; }
+    .edition { position: relative; z-index: 2; text-align: right; }
+    .edition strong { display: block; color: var(--gold); font-family: "Italiana", Georgia, serif; font-size: 64px; font-weight: 400; line-height: .9; }
+    .edition span { display: block; margin-top: 12px; font-size: 9px; letter-spacing: .2em; line-height: 1.6; text-transform: uppercase; }
+
+    .catalogue-shell { padding: 0 4.5vw 130px; background: var(--white); }
+    .filter-bar { position: sticky; top: 77px; z-index: 25; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 30px; min-height: 91px; padding: 18px 0; background: rgba(255,255,255,.96); border-bottom: 1px solid var(--line); backdrop-filter: blur(12px); }
+    .filter-tabs { display: flex; align-items: center; gap: 5px; }
+    .filter-tab { min-height: 39px; padding: 0 14px; border: 1px solid transparent; background: transparent; cursor: pointer; font-size: 9px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; transition: color .2s, border-color .2s, background .2s; }
+    .filter-tab:hover { border-color: var(--line); }
+    .filter-tab.active { color: var(--white); background: var(--navy); border-color: var(--navy); }
+    .search-wrap { position: relative; width: min(360px, 100%); justify-self: center; }
+    .search-wrap svg { position: absolute; left: 0; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); color: #68717a; }
+    .search-wrap input { width: 100%; height: 43px; padding: 0 34px 0 27px; border: 0; border-bottom: 1px solid var(--line); outline: 0; background: transparent; color: var(--navy); font-size: 12px; }
+    .search-wrap input:focus { border-bottom-color: var(--gold); }
+    .clear-search { position: absolute; right: 0; top: 50%; display: none; width: 28px; height: 28px; border: 0; background: transparent; cursor: pointer; transform: translateY(-50%); }
+    .sort-wrap { display: flex; align-items: center; gap: 13px; }
+    .sort-wrap label { color: #68717a; font-size: 8px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; }
+    .sort-wrap select { min-width: 150px; padding: 10px 28px 10px 0; border: 0; border-bottom: 1px solid var(--line); outline: 0; color: var(--navy); background: transparent; font-size: 10px; cursor: pointer; }
+    .results-meta { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 34px 0 22px; }
+    .results-count { margin: 0; color: #68717a; font-size: 10px; letter-spacing: .13em; text-transform: uppercase; }
+    .results-count strong { color: var(--navy); }
+    .view-options { display: flex; align-items: center; gap: 5px; }
+    .view-button { width: 31px; height: 31px; display: grid; place-items: center; border: 0; background: transparent; cursor: pointer; opacity: .4; }
+    .view-button.active { opacity: 1; }
+    .view-button svg { width: 17px; height: 17px; }
+
+    .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 20px; row-gap: 58px; }
+    .product-card { min-width: 0; }
+    .product-image { position: relative; aspect-ratio: .79; overflow: hidden; background: #ebe7df; }
+    .product-image img { height: 100%; object-fit: cover; transition: transform .65s var(--ease); }
+    .product-card:hover .product-image img { transform: scale(1.035); }
+    .product-badge { position: absolute; top: 14px; left: 14px; z-index: 2; padding: 7px 9px; color: var(--navy); background: rgba(255,255,255,.92); font-size: 8px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+    .wishlist { position: absolute; top: 10px; right: 10px; z-index: 3; width: 40px; height: 40px; display: grid; place-items: center; border: 0; background: rgba(255,255,255,.9); cursor: pointer; transition: color .2s, background .2s; }
+    .wishlist svg { width: 18px; height: 18px; }
+    .wishlist.saved { color: var(--white); background: var(--gold); }
+    .product-actions { position: absolute; right: 0; bottom: 0; left: 0; z-index: 2; display: grid; grid-template-columns: 1fr 52px; transform: translateY(102%); transition: transform .3s var(--ease); }
+    .product-card:hover .product-actions, .product-actions:focus-within { transform: translateY(0); }
+    .quick-view { min-height: 52px; border: 0; color: var(--white); background: var(--navy); cursor: pointer; font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+    .quick-add { display: grid; place-items: center; border: 0; color: var(--navy); background: var(--gold); cursor: pointer; }
+    .quick-add:hover { background: var(--sand); }
+    .quick-add svg { width: 18px; height: 18px; }
+    .product-info { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; padding: 18px 2px 0; }
+    .product-title { margin: 0 0 6px; color: var(--navy); font-family: "Italiana", Georgia, serif; font-size: 23px; font-weight: 400; }
+    .product-type { margin: 0; color: #777f86; font-size: 8px; letter-spacing: .13em; line-height: 1.5; text-transform: uppercase; }
+    .product-price { padding-top: 4px; color: var(--navy); font-size: 11px; font-weight: 600; white-space: nowrap; }
+    .empty-results { grid-column: 1 / -1; min-height: 390px; display: none; place-items: center; padding: 60px 20px; border: 1px solid var(--line); text-align: center; }
+    .empty-results.show { display: grid; }
+    .empty-results h3 { margin: 0 0 12px; color: var(--navy); font-family: "Italiana", Georgia, serif; font-size: 40px; font-weight: 400; }
+    .empty-results p { margin: 0 0 25px; color: #68717a; font-size: 12px; }
+
+    .bespoke-banner { display: grid; grid-template-columns: 1.1fr .9fr; margin-top: 120px; color: var(--white); background: var(--navy); }
+    .banner-copy { display: flex; flex-direction: column; justify-content: center; padding: 7vw; }
+    .banner-copy .eyebrow { color: var(--sand); }
+    .banner-copy h2 { max-width: 730px; margin: 0; font-size: clamp(46px, 5.7vw, 86px); line-height: .94; letter-spacing: -.035em; }
+    .banner-copy p { max-width: 450px; margin: 28px 0 34px; color: rgba(255,255,255,.66); font-size: 13px; line-height: 1.8; }
+    .banner-image { min-height: 610px; overflow: hidden; }
+    .banner-image img { height: 100%; object-fit: cover; }
+
+    footer { padding: 82px 5vw 27px; color: var(--white); background: var(--navy); }
+    .footer-main { display: grid; grid-template-columns: 1.3fr .7fr .7fr; gap: 70px; padding-bottom: 68px; }
+    .footer-brand h2 { margin: 0 0 22px; font-size: clamp(43px, 5vw, 72px); line-height: .95; }
+    .footer-brand p { max-width: 430px; margin: 0 0 28px; color: rgba(255,255,255,.63); font-size: 12px; line-height: 1.75; }
+    .subscribe { display: flex; max-width: 470px; border-bottom: 1px solid rgba(255,255,255,.45); }
+    .subscribe input { flex: 1; min-width: 0; padding: 15px 2px; border: 0; outline: 0; color: var(--white); background: transparent; font-size: 12px; }
+    .subscribe input::placeholder { color: rgba(255,255,255,.5); }
+    .subscribe button { width: 48px; border: 0; color: var(--white); background: transparent; cursor: pointer; }
+    .footer-col h3 { margin: 0 0 25px; color: var(--sand); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; }
+    .footer-col a { display: block; width: max-content; margin: 0 0 14px; color: rgba(255,255,255,.72); font-size: 12px; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,.14); color: rgba(255,255,255,.42); font-size: 8px; letter-spacing: .12em; text-transform: uppercase; }
+
+    .overlay { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 24px; background: rgba(3,11,21,.76); opacity: 0; visibility: hidden; transition: opacity .25s, visibility .25s; }
+    .overlay.open { opacity: 1; visibility: visible; }
+    .modal { width: min(900px, 100%); display: grid; grid-template-columns: .9fr 1.1fr; color: var(--ink); background: var(--ivory); transform: translateY(18px); transition: transform .3s var(--ease); }
+    .overlay.open .modal { transform: translateY(0); }
+    .modal-image { min-height: 560px; background: #ddd8cf; }
+    .modal-image img { height: 100%; object-fit: cover; }
+    .modal-content { position: relative; display: flex; flex-direction: column; justify-content: center; padding: 58px; }
+    .modal-close { position: absolute; top: 15px; right: 15px; }
+    .modal-content h3 { margin: 0 0 10px; color: var(--navy); font-family: "Italiana", Georgia, serif; font-size: 46px; font-weight: 400; }
+    .modal-price { color: var(--gold); font-size: 13px; font-weight: 600; letter-spacing: .08em; }
+    .modal-content > p { margin: 24px 0; color: #565e66; font-size: 13px; line-height: 1.75; }
+    .size-label { margin-bottom: 10px; font-size: 9px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; }
+    .sizes { display: flex; gap: 8px; margin-bottom: 28px; }
+    .size-button { width: 42px; height: 42px; border: 1px solid var(--line); background: transparent; cursor: pointer; }
+    .size-button.active, .size-button:hover { color: var(--white); background: var(--navy); }
+
+    .cart-drawer { position: fixed; top: 0; right: 0; z-index: 100; width: min(420px, 100%); height: 100dvh; display: flex; flex-direction: column; padding: 28px; background: var(--ivory); box-shadow: -20px 0 60px rgba(0,0,0,.18); transform: translateX(105%); transition: transform .35s var(--ease); }
+    .cart-drawer.open { transform: translateX(0); }
+    .cart-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+    .cart-header h2 { margin: 0; color: var(--navy); font-family: "Italiana", Georgia, serif; font-size: 31px; font-weight: 400; }
+    .cart-items { flex: 1; overflow: auto; padding: 18px 0; }
+    .empty-cart { display: grid; place-items: center; height: 100%; color: #68717a; font-size: 12px; line-height: 1.7; text-align: center; }
+    .cart-item { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .cart-item img { width: 72px; height: 86px; object-fit: cover; }
+    .cart-item h4 { margin: 5px 0 7px; color: var(--navy); font-family: "Italiana", Georgia, serif; font-size: 19px; font-weight: 400; }
+    .cart-item p { margin: 0 0 4px; color: #6a727a; font-size: 10px; }
+    .remove-item { align-self: start; border: 0; background: transparent; cursor: pointer; color: #7a7f84; }
+    .cart-footer { padding-top: 19px; border-top: 1px solid var(--line); }
+    .cart-total { display: flex; justify-content: space-between; margin-bottom: 18px; color: var(--navy); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+    .cart-footer .button { width: 100%; }
+    .toast { position: fixed; z-index: 120; left: 50%; bottom: 28px; padding: 13px 19px; color: var(--white); background: var(--navy); font-size: 10px; letter-spacing: .08em; transform: translate(-50%,30px); opacity: 0; pointer-events: none; transition: transform .25s, opacity .25s; }
+    .toast.show { opacity: 1; transform: translate(-50%,0); }
+    .mobile-panel { display: none; }
+
+    @media (max-width: 1080px) {
+      .filter-bar { grid-template-columns: 1fr auto; }
+      .filter-tabs { grid-column: 1 / -1; overflow-x: auto; padding-bottom: 4px; }
+      .search-wrap { justify-self: start; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 980px) {
+      .site-header { grid-template-columns: 1fr auto; padding: 0 24px; }
+      .desktop-nav { display: none; }
+      .menu-toggle { display: grid; }
+      .catalogue-hero { grid-template-columns: 1fr; }
+      .hero-aside { display: none; }
+      .bespoke-banner { grid-template-columns: 1fr; }
+      .banner-image { min-height: 650px; }
+      .footer-main { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+      .mobile-panel { position: fixed; inset: 108px 0 0; z-index: 70; display: flex; flex-direction: column; justify-content: center; padding: 9vw; color: var(--white); background: var(--navy); transform: translateX(100%); transition: transform .35s var(--ease); }
+      .mobile-panel.open { transform: translateX(0); }
+      .mobile-panel a { padding: 17px 0; border-bottom: 1px solid rgba(255,255,255,.16); font-family: "Italiana", Georgia, serif; font-size: clamp(34px,8vw,52px); }
+      .mobile-panel small { margin-top: 35px; color: var(--sand); font-size: 9px; letter-spacing: .15em; text-transform: uppercase; }
+    }
+    @media (max-width: 640px) {
+      .announcement { height: 28px; font-size: 7px; }
+      .site-header { height: 70px; padding: 0 16px; }
+      .mobile-panel { inset: 98px 0 0; }
+      .brand-copy { display: none; }
+      .header-actions { gap: 4px; }
+      .catalogue-hero { min-height: 380px; }
+      .hero-copy { padding: 66px 24px 62px; }
+      .hero-copy h1 { font-size: clamp(66px,22vw,92px); }
+      .catalogue-shell { padding: 0 16px 90px; }
+      .filter-bar { top: 70px; grid-template-columns: 1fr; gap: 12px; padding: 14px 0; }
+      .filter-tabs { order: 2; width: calc(100vw - 32px); }
+      .filter-tab { flex: 0 0 auto; }
+      .search-wrap { width: 100%; }
+      .sort-wrap { display: none; }
+      .results-meta { padding-top: 24px; }
+      .product-grid { grid-template-columns: repeat(2, minmax(0,1fr)); column-gap: 10px; row-gap: 35px; }
+      .product-image { aspect-ratio: .72; }
+      .product-actions { grid-template-columns: 1fr 45px; transform: none; }
+      .quick-view { display: none; }
+      .quick-add { grid-column: 2; height: 45px; }
+      .wishlist { width: 35px; height: 35px; }
+      .product-badge { top: 9px; left: 9px; padding: 5px 7px; font-size: 6px; }
+      .product-info { display: block; padding-top: 13px; }
+      .product-title { font-size: 18px; }
+      .product-type { min-height: 28px; font-size: 7px; }
+      .product-price { display: block; padding-top: 7px; }
+      .bespoke-banner { margin-top: 80px; }
+      .banner-copy { padding: 74px 24px; }
+      .banner-image { min-height: 520px; }
+      footer { padding: 70px 24px 24px; }
+      .footer-main { grid-template-columns: 1fr; gap: 42px; }
+      .footer-brand { grid-column: auto; }
+      .footer-bottom { flex-direction: column; }
+      .modal { grid-template-columns: 1fr; max-height: calc(100dvh - 30px); overflow: auto; }
+      .modal-image { min-height: 280px; height: 38vh; }
+      .modal-content { padding: 38px 26px 30px; }
+      .modal-content h3 { font-size: 37px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <div class="announcement">Complimentary Accra delivery on orders over GH₵ 1,500</div>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="TNH Collections home"><span class="brand-mark"><img src="assets/logo.jpeg" alt=""></span><span class="brand-copy"><strong>TNH Collections</strong><small>Accra · Ghana</small></span></a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="index.html">Home</a><a class="active" href="catalogue.html">Catalogue</a><a href="cloth-details.html">Cloth details</a><a href="perfume-details.html">Perfume details</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-button" aria-label="Focus product search" onclick="focusSearch()"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="6.8"/><path d="m16 16 4.4 4.4"/></svg></button>
+      <button class="icon-button" aria-label="Open shopping bag" onclick="toggleCart(true)"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M5 8.5h14l-.8 12H5.8L5 8.5Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg><span class="cart-count" id="cartCount">0</span></button>
+      <button class="icon-button menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" onclick="toggleMenu()"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M3 7h18M3 17h18"/></svg></button>
+    </div>
+  </header>
+  <nav class="mobile-panel" id="mobileMenu" aria-label="Mobile navigation"><a href="index.html">Home</a><a href="catalogue.html" onclick="toggleMenu(false)">Catalogue</a><a href="cloth-details.html">Cloth details</a><a href="perfume-details.html">Perfume details</a><small>Contemporary African clothing & fragrance</small></nav>
+
+  <main>
+    <section class="catalogue-hero">
+      <div class="hero-copy"><p class="eyebrow">TNH catalogue · 2026</p><h1 class="serif">The <span>collection.</span></h1><p>Ready-to-wear essentials, custom silhouettes and signature fragrance. Designed in Accra for a life lived with presence.</p></div>
+      <div class="hero-aside"><div class="edition"><strong>26</strong><span>Accra edition<br>Volume one</span></div></div>
+    </section>
+
+    <section class="catalogue-shell" aria-label="Product catalogue">
+      <div class="filter-bar">
+        <div class="filter-tabs" role="group" aria-label="Product categories">
+          <button class="filter-tab active" data-filter="all">All pieces</button>
+          <button class="filter-tab" data-filter="ready-to-wear">Ready-to-wear</button>
+          <button class="filter-tab" data-filter="bespoke">Bespoke</button>
+          <button class="filter-tab" data-filter="fragrance">Fragrance</button>
+        </div>
+        <div class="search-wrap"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="6.8"/><path d="m16 16 4.4 4.4"/></svg><input id="productSearch" type="search" placeholder="Search the collection" aria-label="Search products"><button class="clear-search" id="clearSearch" aria-label="Clear search" onclick="clearSearch()">×</button></div>
+        <div class="sort-wrap"><label for="sortProducts">Sort by</label><select id="sortProducts"><option value="featured">Featured</option><option value="newest">Newest</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select></div>
+      </div>
+
+      <div class="results-meta"><p class="results-count"><strong id="resultCount">15</strong> pieces</p><div class="view-options" aria-hidden="true"><button class="view-button active"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M4 4h6v7H4zM14 4h6v7h-6zM4 15h6v5H4zM14 15h6v5h-6z"/></svg></button></div></div>
+      <div class="product-grid" id="productGrid"></div>
+
+      <section class="bespoke-banner" aria-labelledby="bespoke-title">
+        <div class="banner-copy"><p class="eyebrow">Beyond the catalogue</p><h2 class="serif" id="bespoke-title">Made around you,<br>down to the last line.</h2><p>Begin with any TNH silhouette, then choose the cloth, colour and finishing details. Our Accra atelier shapes the rest to your measure.</p><a class="button light" href="cloth-details.html">Discover bespoke <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a></div>
+        <div class="banner-image"><img src="assets/Screenshot 2026-10-01 at 13-38-30 (1) Instagram.png" alt="TNH model wearing a vivid red contemporary top" loading="lazy"></div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-main"><div class="footer-brand"><h2 class="serif">Wear the story<br>before you tell it.</h2><p>Join the private list for collection releases, studio appointments and first access to limited cloth.</p><form class="subscribe" onsubmit="subscribe(event)"><input type="email" required placeholder="Your email address" aria-label="Email address"><button aria-label="Subscribe"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></button></form></div><div class="footer-col"><h3>Explore</h3><a href="catalogue.html">Catalogue</a><a href="cloth-details.html">Custom clothing</a><a href="perfume-details.html">Fine fragrance</a><a href="index.html">Our story</a></div><div class="footer-col"><h3>Connect</h3><a href="https://www.instagram.com/tnh.collections/" target="_blank" rel="noreferrer">Instagram</a><a href="tel:+233240581832">+233 24 058 1832</a><a href="mailto:hello@tnhcollections.com">Email the studio</a><a href="index.html">Accra, Ghana</a></div></div>
+    <div class="footer-bottom"><span>© 2026 TNH Collections. Prototype experience.</span><span>Contemporary authentic · Made in Ghana</span></div>
+  </footer>
+
+  <div class="overlay" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="overlayClick(event)"><div class="modal"><div class="modal-image"><img id="modalImage" src="" alt=""></div><div class="modal-content"><button class="icon-button modal-close" aria-label="Close product details" onclick="closeProduct()"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="m5 5 14 14M19 5 5 19"/></svg></button><p class="eyebrow" id="modalType">Clothing</p><h3 id="modalTitle">Product name</h3><span class="modal-price" id="modalPrice">GH₵ 0</span><p id="modalDescription">Product description.</p><div id="sizeArea"><div class="size-label">Select size</div><div class="sizes"><button class="size-button">S</button><button class="size-button active">M</button><button class="size-button">L</button><button class="size-button">XL</button></div></div><button class="button" id="modalAdd">Add to bag</button></div></div></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping bag" aria-hidden="true"><div class="cart-header"><h2>Your bag</h2><button class="icon-button" aria-label="Close shopping bag" onclick="toggleCart(false)"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="m5 5 14 14M19 5 5 19"/></svg></button></div><div class="cart-items" id="cartItems"><div class="empty-cart">Your bag is waiting.<br>Choose something distinctly yours.</div></div><div class="cart-footer"><div class="cart-total"><span>Subtotal</span><span id="cartTotal">GH₵ 0</span></div><button class="button" onclick="showToast('Secure checkout will connect to your payment gateway')">Proceed to checkout</button></div></aside>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const products = [
+      { id: 1, name: 'Navy Ease Set', category: 'ready-to-wear', type: 'Two piece · Lightweight wool', price: 1850, image: 'assets/Screenshot 2026-10-01 at 13-42-55 (1) Instagram.png', badge: 'Signature', rank: 1, description: 'A relaxed two-piece with precise shoulders, a fluid trouser line and quietly refined finishing. Built for movement, presence and warm Accra evenings.' },
+      { id: 2, name: 'Ahenfie Set', category: 'bespoke', type: 'Two piece · Custom cotton', price: 1950, image: 'assets/Screenshot 2026-10-01 at 13-39-57 (1) Instagram.png', badge: 'Made to measure', rank: 5, description: 'A clean ceremonial set shaped by subtle pleating and a confident collar line. Available in your choice of cloth, colour and personal monogram.' },
+      { id: 3, name: 'Onyx Man Set', category: 'ready-to-wear', type: 'Two piece · Textured cotton', price: 1480, image: 'assets/Screenshot 2026-10-01 at 13-40-57 (1) Instagram.png', badge: 'New', rank: 2, description: 'Monochrome, fluid and quietly assertive. The Onyx Man Set balances an easy elbow-length top with a straight, contemporary trouser.' },
+      { id: 4, name: 'Lakeside Leisure Set', category: 'ready-to-wear', type: 'Two piece · Cotton linen', price: 1420, image: 'assets/Screenshot 2026-10-01 at 13-43-25 (1) Instagram.png', badge: '', rank: 3, description: 'A refined utility shirt and trouser set cut from breathable cotton-linen. Tonal buttons and generous pockets give the everyday uniform a considered edge.' },
+      { id: 5, name: 'Cocoa Polo Set', category: 'ready-to-wear', type: 'Polo set · Textured cotton', price: 1560, image: 'assets/Screenshot 2026-10-01 at 13-39-40 (1) Instagram.png', badge: 'Limited', rank: 6, description: 'A charcoal short-sleeve set detailed with a precise diagonal seam. Soft structure keeps the silhouette easy while retaining a sharp finish.' },
+      { id: 6, name: 'Coastal Ceremony', category: 'bespoke', type: 'Bespoke · Hand-finished', price: 2280, image: 'assets/Screenshot 2026-10-01 at 13-40-21 (1) Instagram.png', badge: 'Atelier', rank: 4, description: 'A modern West African ceremonial silhouette, developed in close consultation with the TNH atelier and finished entirely to your measure.' },
+      { id: 7, name: 'Chocolate Etibo', category: 'ready-to-wear', type: 'Longline top · Cotton', price: 720, image: 'assets/Screenshot 2026-10-01 at 13-40-03 (1) Instagram.png', badge: 'Made in Ghana', rank: 7, description: 'A vivid wax-cotton shirt cut with a crisp collar and easy body. Designed to carry the colour of tradition into a contemporary wardrobe.' },
+      { id: 11, name: 'Graphic Line Set', category: 'ready-to-wear', type: 'Two piece · Graphic weave', price: 1380, image: 'assets/Screenshot 2026-10-01 at 13-39-47 (1) Instagram.png', badge: 'New', rank: 8, description: 'A relaxed black top paired with graphic wide-leg trousers. Monochrome pattern and generous proportions give the set its confident rhythm.' },
+      { id: 12, name: 'Heritage Panel Tunic', category: 'ready-to-wear', type: 'Longline tunic · Cotton', price: 1580, image: 'assets/Screenshot 2026-10-01 at 13-40-10 (1) Instagram.png', badge: 'Limited', rank: 9, description: 'A clean black longline tunic interrupted by a warm heritage panel, balancing graphic storytelling with an understated silhouette.' },
+      { id: 13, name: 'Silver Coast Shirt', category: 'ready-to-wear', type: 'Open shirt · Textured cotton', price: 980, image: 'assets/Screenshot 2026-10-01 at 13-40-44 (1) Instagram.png', badge: '', rank: 10, description: 'A fluid, open-neck shirt in cool silver grey with a soft drape and easy short sleeve, made for warm-weather layering.' },
+      { id: 14, name: 'Pyramid Resort Set', category: 'ready-to-wear', type: 'Travel set · Cotton linen', price: 1350, image: 'assets/Screenshot 2026-10-01 at 13-43-38 (1) Instagram.png', badge: 'Travel edit', rank: 11, description: 'A crisp ivory shirt and chocolate trouser pairing with a relaxed travel-ready cut and subtle traditional neckline.' },
+      { id: 15, name: 'Pharaoh Short Set', category: 'ready-to-wear', type: 'Short sleeve set · Cotton', price: 1290, image: 'assets/Screenshot 2026-10-01 at 13-43-49 (1) Instagram.png', badge: 'New', rank: 12, description: 'An ivory short-sleeve top and deep chocolate trouser designed with a clean neckline, easy proportions and polished contrast.' },
+      { id: 8, name: 'Midnight Coast', category: 'fragrance', type: 'Eau de parfum · 75ml', price: 680, image: 'assets/perfume-product.jpg', badge: 'House scent', rank: 13, description: 'Inspired by the Atlantic after dusk, balancing bergamot and sea salt with smoked cedar, saffron and rare oud.' },
+      { id: 9, name: 'Golden Hour', category: 'fragrance', type: 'Eau de parfum · 75ml', price: 640, image: 'assets/catalogue-amber-perfume.webp', badge: 'New', rank: 14, description: 'Warm amber, spiced citrus and soft leather illuminated by a rich base of sandalwood. An evening scent with a generous trail.' },
+      { id: 10, name: 'Sankofa Oud', category: 'fragrance', type: 'Parfum extrait · 50ml', price: 820, image: 'assets/catalogue-gold-perfume.jpg', badge: 'Limited', rank: 15, description: 'A concentrated study of oud, cacao husk and incense with a glowing amber heart. Deep, ceremonial and made to linger.' }
+    ];
+    let activeCategory = 'all';
+    let activeProduct = null;
+    let cart = [];
+    let toastTimer;
+
+    const money = value => `GH₵ ${value.toLocaleString()}`;
+
+    function renderProducts() {
+      const query = document.getElementById('productSearch').value.trim().toLowerCase();
+      const sort = document.getElementById('sortProducts').value;
+      let visible = products.filter(product => (activeCategory === 'all' || product.category === activeCategory) && (`${product.name} ${product.type}`.toLowerCase().includes(query)));
+      visible.sort((a, b) => sort === 'low' ? a.price - b.price : sort === 'high' ? b.price - a.price : sort === 'newest' ? b.id - a.id : a.rank - b.rank);
+      document.getElementById('resultCount').textContent = visible.length;
+      document.getElementById('clearSearch').style.display = query ? 'block' : 'none';
+      const grid = document.getElementById('productGrid');
+      if (!visible.length) {
+        grid.innerHTML = `<div class="empty-results show"><div><h3>No pieces found.</h3><p>Try another search or return to the complete collection.</p><button class="button" onclick="resetFilters()">View all pieces</button></div></div>`;
+        return;
+      }
+      grid.innerHTML = visible.map(product => `
+        <article class="product-card">
+          <div class="product-image">
+            ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+            <button class="wishlist" aria-label="Save ${product.name}" onclick="toggleWish(this, '${product.name}')"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M20.8 5.8c-1.8-2.1-5-2.1-6.9-.2L12 7.5l-1.9-1.9a4.8 4.8 0 0 0-6.9 6.7L12 21l8.8-8.7a4.8 4.8 0 0 0 0-6.5Z"/></svg></button>
+            <img src="${product.image}" alt="${product.name}" loading="lazy">
+            <div class="product-actions"><button class="quick-view" onclick="openProduct(${product.id})">Quick view</button><button class="quick-add" aria-label="Add ${product.name} to bag" onclick="addToCart(${product.id})"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg></button></div>
+          </div>
+          <div class="product-info"><div><h2 class="product-title">${product.name}</h2><p class="product-type">${product.type}</p></div><span class="product-price">${money(product.price)}</span></div>
+        </article>`).join('');
+    }
+
+    function openProduct(id) {
+      activeProduct = products.find(product => product.id === id);
+      document.getElementById('modalImage').src = activeProduct.image;
+      document.getElementById('modalImage').alt = activeProduct.name;
+      document.getElementById('modalType').textContent = activeProduct.type;
+      document.getElementById('modalTitle').textContent = activeProduct.name;
+      document.getElementById('modalPrice').textContent = money(activeProduct.price);
+      document.getElementById('modalDescription').textContent = activeProduct.description;
+      document.getElementById('sizeArea').style.display = activeProduct.category === 'fragrance' ? 'none' : 'block';
+      document.getElementById('modalAdd').onclick = () => { addToCart(id); closeProduct(); };
+      document.getElementById('productModal').classList.add('open');
+      document.body.classList.add('no-scroll');
+    }
+    function closeProduct() { document.getElementById('productModal').classList.remove('open'); document.body.classList.remove('no-scroll'); }
+    function overlayClick(event) { if (event.target.id === 'productModal') closeProduct(); }
+
+    function addToCart(id) { const product = products.find(item => item.id === id); cart.push(product); renderCart(); showToast(`${product.name} added to your bag`); }
+    function removeFromCart(index) { const removed = cart.splice(index, 1)[0]; renderCart(); showToast(`${removed.name} removed`); }
+    function renderCart() {
+      const count = document.getElementById('cartCount');
+      count.textContent = cart.length; count.classList.toggle('visible', cart.length > 0);
+      document.getElementById('cartTotal').textContent = money(cart.reduce((sum,item) => sum + item.price, 0));
+      document.getElementById('cartItems').innerHTML = cart.length ? cart.map((item,index) => `<article class="cart-item"><img src="${item.image}" alt=""><div><h4>${item.name}</h4><p>${item.type}</p><p>${money(item.price)}</p></div><button class="remove-item" aria-label="Remove ${item.name}" onclick="removeFromCart(${index})">×</button></article>`).join('') : '<div class="empty-cart">Your bag is waiting.<br>Choose something distinctly yours.</div>';
+    }
+    function toggleCart(open) { document.getElementById('cartDrawer').classList.toggle('open', open); document.getElementById('cartDrawer').setAttribute('aria-hidden', String(!open)); document.body.classList.toggle('no-scroll', open); }
+    function toggleWish(button, name) { const saved = button.classList.toggle('saved'); button.querySelector('svg').setAttribute('fill', saved ? 'currentColor' : 'none'); showToast(saved ? `${name} saved to your list` : `${name} removed from your list`); }
+    function toggleMenu(force) { const menu = document.getElementById('mobileMenu'); const open = typeof force === 'boolean' ? force : !menu.classList.contains('open'); menu.classList.toggle('open', open); document.getElementById('menuToggle').setAttribute('aria-expanded', String(open)); document.body.classList.toggle('no-scroll', open); }
+    function focusSearch() { document.getElementById('productSearch').focus(); document.querySelector('.filter-bar').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    function clearSearch() { document.getElementById('productSearch').value = ''; renderProducts(); document.getElementById('productSearch').focus(); }
+    function resetFilters() { activeCategory = 'all'; document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.toggle('active', tab.dataset.filter === 'all')); document.getElementById('productSearch').value = ''; document.getElementById('sortProducts').value = 'featured'; renderProducts(); }
+    function subscribe(event) { event.preventDefault(); event.currentTarget.reset(); showToast('Welcome to the TNH private list'); }
+    function showToast(message) { const toast = document.getElementById('toast'); toast.textContent = message; toast.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), 2800); }
+
+    document.querySelectorAll('.filter-tab').forEach(tab => tab.addEventListener('click', () => { activeCategory = tab.dataset.filter; document.querySelectorAll('.filter-tab').forEach(item => item.classList.toggle('active', item === tab)); renderProducts(); }));
+    document.getElementById('productSearch').addEventListener('input', renderProducts);
+    document.getElementById('sortProducts').addEventListener('change', renderProducts);
+    document.querySelectorAll('.size-button').forEach(button => button.addEventListener('click', () => { document.querySelectorAll('.size-button').forEach(item => item.classList.remove('active')); button.classList.add('active'); }));
+    document.addEventListener('keydown', event => { if (event.key !== 'Escape') return; closeProduct(); toggleCart(false); toggleMenu(false); });
+    renderProducts();
+  </script>
+</body>
+</html>

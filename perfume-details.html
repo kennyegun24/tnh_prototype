@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover Midnight Coast by TNH Collections — a deep, luminous eau de parfum inspired by the Atlantic after dusk.">
+  <meta name="theme-color" content="#061424">
+  <title>Midnight Coast — TNH Collections</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Italiana&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#07192f; --navy-2:#0d2948; --night:#061424; --ink:#09111b; --ivory:#f4f0e8; --white:#fff; --sand:#d7c9b4; --gold:#bd8a44; --gold-2:#d2a767; --line:rgba(7,25,47,.18); --light-line:rgba(255,255,255,.17); --ease:cubic-bezier(.2,.75,.3,1); }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; scrollbar-width:thin; scrollbar-color:var(--gold) var(--navy); }
+    *::-webkit-scrollbar { width:11px; height:11px; }
+    *::-webkit-scrollbar-track { background:var(--navy); }
+    *::-webkit-scrollbar-thumb { min-height:54px; background:var(--gold); border:3px solid var(--navy); border-radius:2px; }
+    *::-webkit-scrollbar-thumb:hover { background:var(--sand); }
+    *::-webkit-scrollbar-corner { background:var(--navy); }
+    body { margin:0; color:var(--ink); background:var(--ivory); font-family:"DM Sans",Arial,sans-serif; overflow-x:hidden; }
+    body.no-scroll { overflow:hidden; }
+    a { color:inherit; text-decoration:none; }
+    button,input { font:inherit; }
+    button { color:inherit; }
+    img { display:block; width:100%; }
+    .serif { font-family:"Italiana",Georgia,serif; font-weight:400; }
+    .eyebrow { display:flex; align-items:center; gap:12px; margin:0 0 18px; color:var(--gold); font-size:10px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; }
+    .eyebrow::before { content:""; width:32px; height:1px; background:currentColor; }
+    .button { min-height:52px; display:inline-flex; align-items:center; justify-content:center; gap:12px; padding:0 23px; border:1px solid var(--navy); background:var(--navy); color:var(--white); cursor:pointer; font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; transition:background .25s,color .25s,transform .25s; }
+    .button:hover { background:transparent; color:var(--navy); transform:translateY(-2px); }
+    .button.light { border-color:var(--white); background:var(--white); color:var(--navy); }
+    .button.light:hover { background:transparent; color:var(--white); }
+    .button.gold { border-color:var(--gold-2); background:var(--gold-2); color:var(--night); }
+    .button.gold:hover { background:transparent; color:var(--gold-2); }
+    .button svg { width:17px; height:17px; }
+
+    .announcement { height:31px; display:flex; align-items:center; justify-content:center; padding:0 5vw; color:var(--white); background:var(--navy); font-size:9px; letter-spacing:.22em; text-align:center; text-transform:uppercase; }
+    .site-header { position:sticky; top:0; z-index:40; height:77px; display:grid; grid-template-columns:170px 1fr 170px; align-items:center; padding:0 4.5vw; color:var(--navy); background:rgba(244,240,232,.96); border-bottom:1px solid var(--line); backdrop-filter:blur(12px); }
+    .brand { display:inline-flex; align-items:center; gap:10px; width:max-content; }
+    .brand-mark { width:46px; height:46px; display:block; overflow:hidden; background:var(--white); }
+    .brand-mark img { width:100%; height:100%; object-fit:contain; }
+    .brand-copy strong { display:block; font-family:"Italiana",Georgia,serif; font-size:16px; font-weight:400; letter-spacing:.08em; }
+    .brand-copy small { display:block; margin-top:2px; font-size:7px; letter-spacing:.24em; text-transform:uppercase; }
+    .desktop-nav { display:flex; align-items:center; justify-content:center; gap:clamp(22px,3.6vw,54px); }
+    .desktop-nav a { position:relative; padding:28px 0 25px; font-size:11px; font-weight:600; letter-spacing:.11em; text-transform:uppercase; }
+    .desktop-nav a::after { content:""; position:absolute; left:0; right:100%; bottom:20px; height:1px; background:var(--gold); transition:right .25s; }
+    .desktop-nav a:hover::after,.desktop-nav a.active::after { right:0; }
+    .header-actions { display:flex; justify-content:flex-end; align-items:center; gap:17px; }
+    .icon-button { position:relative; width:39px; height:39px; display:grid; place-items:center; border:0; background:transparent; cursor:pointer; }
+    .icon-button svg { width:20px; height:20px; }
+    .cart-count { position:absolute; top:0; right:0; min-width:17px; height:17px; display:grid; place-items:center; padding:0 4px; color:var(--white); background:var(--gold); border-radius:50%; font-size:9px; transform:scale(0); transition:transform .25s var(--ease); }
+    .cart-count.visible { transform:scale(1); }
+    .menu-toggle { display:none; }
+    .mobile-panel { display:none; }
+
+    .breadcrumb { display:flex; align-items:center; gap:10px; padding:21px 4.5vw; border-bottom:1px solid var(--line); color:#6a727a; background:var(--white); font-size:8px; letter-spacing:.14em; text-transform:uppercase; }
+    .breadcrumb a:hover { color:var(--navy); }
+    .breadcrumb span { color:var(--gold); }
+
+    .product-shell { display:grid; grid-template-columns:minmax(0,1.42fr) minmax(400px,.78fr); align-items:start; color:var(--white); background:var(--night); }
+    .gallery { display:grid; grid-template-columns:1fr 1fr; gap:2px; border-right:1px solid var(--light-line); background:var(--night); }
+    .gallery-item { position:relative; min-height:650px; overflow:hidden; background:#0c2037; cursor:zoom-in; }
+    .gallery-item:first-child { grid-column:1 / -1; min-height:860px; }
+    .gallery-item img { height:100%; object-fit:cover; filter:saturate(.88) contrast(1.04); transition:transform .75s var(--ease); }
+    .gallery-item:hover img { transform:scale(1.025); }
+    .gallery-item.product-only img { object-fit:contain; padding:12%; background:#eae4da; filter:none; }
+    .gallery-index { position:absolute; left:15px; bottom:15px; z-index:2; min-width:32px; padding:8px; color:var(--night); background:rgba(255,255,255,.9); font-size:8px; letter-spacing:.12em; text-align:center; }
+    .gallery-hint { position:absolute; right:16px; top:16px; z-index:2; width:41px; height:41px; display:grid; place-items:center; color:var(--night); background:rgba(255,255,255,.9); }
+    .gallery-hint svg { width:17px; height:17px; }
+
+    .product-panel { position:sticky; top:77px; max-height:calc(100vh - 77px); display:flex; flex-direction:column; justify-content:flex-start; padding:50px clamp(36px,5vw,78px); overflow-y:auto; color:var(--white); background:var(--night); scrollbar-color:var(--gold) transparent; }
+    .product-panel::-webkit-scrollbar-track { background:transparent; }
+    .product-panel .eyebrow { color:var(--gold-2); }
+    .product-panel h1 { margin:0; font-size:clamp(59px,6vw,94px); line-height:.82; letter-spacing:-.05em; }
+    .product-panel h1 em { display:block; margin-left:13%; color:var(--gold-2); font-weight:400; }
+    .product-subline { margin:20px 0 22px; color:rgba(255,255,255,.55); font-size:9px; letter-spacing:.16em; text-transform:uppercase; }
+    .product-price { display:flex; align-items:center; gap:13px; margin-bottom:23px; color:var(--white); font-size:15px; font-weight:600; }
+    .product-price small { color:rgba(255,255,255,.48); font-size:9px; font-weight:400; letter-spacing:.08em; }
+    .product-description { max-width:520px; margin:0 0 27px; color:rgba(255,255,255,.67); font-size:12px; line-height:1.8; }
+    .scent-tags { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:24px; }
+    .scent-tag { padding:7px 9px; border:1px solid var(--light-line); color:rgba(255,255,255,.67); font-size:7px; letter-spacing:.14em; text-transform:uppercase; }
+    .choice-block { padding:20px 0; border-top:1px solid var(--light-line); }
+    .choice-head { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:13px; }
+    .choice-head strong { font-size:9px; letter-spacing:.14em; text-transform:uppercase; }
+    .choice-head span { color:rgba(255,255,255,.5); font-size:9px; }
+    .size-options { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; }
+    .size-button { min-height:52px; border:1px solid var(--light-line); background:transparent; color:var(--white); cursor:pointer; font-size:10px; }
+    .size-button small { display:block; margin-top:3px; color:rgba(255,255,255,.45); font-size:7px; }
+    .size-button:hover,.size-button.active { color:var(--night); background:var(--gold-2); border-color:var(--gold-2); }
+    .size-button.active small,.size-button:hover small { color:inherit; opacity:.65; }
+    .buy-row { display:grid; grid-template-columns:92px 1fr; gap:9px; margin-top:9px; }
+    .quantity { display:grid; grid-template-columns:28px 1fr 28px; align-items:center; border:1px solid var(--gold-2); }
+    .quantity button { height:100%; border:0; background:transparent; color:var(--white); cursor:pointer; }
+    .quantity span { text-align:center; font-size:11px; }
+    .buy-row .button { width:100%; }
+    .sample-toggle { display:flex; align-items:flex-start; gap:11px; margin:16px 0 0; color:rgba(255,255,255,.6); font-size:9px; line-height:1.55; cursor:pointer; }
+    .sample-toggle input { width:15px; height:15px; margin:0; accent-color:var(--gold); }
+    .accordions { margin-top:24px; border-top:1px solid var(--light-line); }
+    .accordion { border-bottom:1px solid var(--light-line); }
+    .accordion-button { width:100%; min-height:51px; display:flex; align-items:center; justify-content:space-between; gap:15px; padding:0; border:0; background:transparent; color:var(--white); cursor:pointer; font-size:9px; font-weight:600; letter-spacing:.13em; text-align:left; text-transform:uppercase; }
+    .accordion-button span:last-child { color:var(--gold-2); font-size:18px; font-weight:400; transition:transform .25s; }
+    .accordion.open .accordion-button span:last-child { transform:rotate(45deg); }
+    .accordion-content { max-height:0; overflow:hidden; transition:max-height .35s var(--ease); }
+    .accordion-content p,.accordion-content ul { margin:0 0 19px; color:rgba(255,255,255,.6); font-size:10px; line-height:1.75; }
+    .accordion-content ul { padding-left:17px; }
+
+    .scent-journey { padding:125px 6vw 135px; background:var(--ivory); }
+    .section-head { display:flex; align-items:flex-end; justify-content:space-between; gap:40px; margin-bottom:58px; }
+    .section-head h2 { margin:0; color:var(--navy); font-size:clamp(48px,5.5vw,82px); line-height:.93; letter-spacing:-.035em; }
+    .section-head > p { max-width:410px; margin:0 0 4px; color:#59616a; font-size:12px; line-height:1.75; }
+    .note-grid { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .note-card { position:relative; min-height:390px; padding:34px; overflow:hidden; border-right:1px solid var(--line); }
+    .note-card:last-child { border-right:0; }
+    .note-number { color:var(--gold); font-family:"Italiana",Georgia,serif; font-size:46px; }
+    .note-card h3 { margin:95px 0 13px; color:var(--navy); font-family:"Italiana",Georgia,serif; font-size:35px; font-weight:400; }
+    .note-card p { max-width:320px; margin:0; color:#5e666e; font-size:11px; line-height:1.8; }
+    .note-list { margin-top:24px; color:var(--navy); font-size:8px; font-weight:600; letter-spacing:.14em; line-height:2; text-transform:uppercase; }
+    .note-symbol { position:absolute; top:39px; right:34px; width:72px; height:72px; border:1px solid rgba(189,138,68,.65); transform:rotate(45deg); }
+    .note-symbol::after { content:""; position:absolute; inset:13px; border:1px solid rgba(189,138,68,.42); }
+
+    .profile-section { display:grid; grid-template-columns:.85fr 1.15fr; min-height:680px; color:var(--white); background:var(--night); }
+    .profile-copy { display:flex; flex-direction:column; justify-content:center; padding:8vw 7vw; }
+    .profile-copy .eyebrow { color:var(--gold-2); }
+    .profile-copy h2 { margin:0; font-size:clamp(48px,6vw,90px); line-height:.9; letter-spacing:-.04em; }
+    .profile-copy p { max-width:470px; margin:30px 0 0; color:rgba(255,255,255,.65); font-size:13px; line-height:1.8; }
+    .profile-data { display:flex; flex-direction:column; justify-content:center; gap:33px; padding:7vw; border-left:1px solid var(--light-line); }
+    .profile-row { display:grid; grid-template-columns:120px 1fr 32px; align-items:center; gap:18px; }
+    .profile-row span { color:rgba(255,255,255,.7); font-size:9px; letter-spacing:.14em; text-transform:uppercase; }
+    .profile-row strong { color:var(--gold-2); font-size:9px; font-weight:500; text-align:right; }
+    .profile-track { height:2px; background:rgba(255,255,255,.16); }
+    .profile-fill { width:var(--value); height:100%; background:var(--gold-2); }
+    .performance-grid { display:grid; grid-template-columns:repeat(3,1fr); margin-top:56px; border-top:1px solid var(--light-line); }
+    .performance-item { padding:22px 18px 0 0; border-right:1px solid var(--light-line); }
+    .performance-item:last-child { padding-left:18px; border-right:0; }
+    .performance-item strong { display:block; color:var(--gold-2); font-family:"Italiana",Georgia,serif; font-size:31px; font-weight:400; }
+    .performance-item span { display:block; margin-top:6px; color:rgba(255,255,255,.48); font-size:7px; letter-spacing:.13em; line-height:1.5; text-transform:uppercase; }
+
+    .ritual { padding:120px 6vw 125px; background:var(--white); }
+    .ritual-grid { display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .ritual-item { min-height:255px; display:flex; flex-direction:column; justify-content:flex-end; padding:28px; border-right:1px solid var(--line); }
+    .ritual-item:last-child { border-right:0; }
+    .ritual-item span { color:var(--gold); font-size:9px; font-weight:600; letter-spacing:.15em; text-transform:uppercase; }
+    .ritual-item h3 { margin:24px 0 9px; color:var(--navy); font-family:"Italiana",Georgia,serif; font-size:27px; font-weight:400; }
+    .ritual-item p { margin:0; color:#667078; font-size:10px; line-height:1.7; }
+
+    .recommendations { padding:115px 5vw 130px; background:var(--ivory); }
+    .recommendation-grid { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+    .recommendation-card { display:grid; grid-template-columns:.9fr 1.1fr; min-height:510px; background:var(--white); }
+    .recommendation-card .image { position:relative; overflow:hidden; background:#ded9d1; }
+    .recommendation-card img { height:100%; object-fit:cover; transition:transform .65s var(--ease); }
+    .recommendation-card:hover img { transform:scale(1.035); }
+    .recommendation-copy { display:flex; flex-direction:column; justify-content:center; padding:45px; }
+    .recommendation-copy .eyebrow { font-size:8px; }
+    .recommendation-copy h3 { margin:0 0 13px; color:var(--navy); font-family:"Italiana",Georgia,serif; font-size:42px; font-weight:400; }
+    .recommendation-copy p { margin:0 0 25px; color:#636c74; font-size:11px; line-height:1.75; }
+    .recommendation-price { margin-bottom:26px; color:var(--navy); font-size:12px; font-weight:600; }
+
+    footer { padding:82px 5vw 27px; color:var(--white); background:var(--navy); }
+    .footer-main { display:grid; grid-template-columns:1.3fr .7fr .7fr; gap:70px; padding-bottom:68px; }
+    .footer-brand h2 { margin:0 0 22px; font-size:clamp(43px,5vw,72px); line-height:.95; }
+    .footer-brand p { max-width:430px; margin:0 0 28px; color:rgba(255,255,255,.63); font-size:12px; line-height:1.75; }
+    .subscribe { display:flex; max-width:470px; border-bottom:1px solid rgba(255,255,255,.45); }
+    .subscribe input { flex:1; min-width:0; padding:15px 2px; border:0; outline:0; color:var(--white); background:transparent; font-size:12px; }
+    .subscribe input::placeholder { color:rgba(255,255,255,.5); }
+    .subscribe button { width:48px; border:0; color:var(--white); background:transparent; cursor:pointer; }
+    .footer-col h3 { margin:0 0 25px; color:var(--sand); font-size:9px; letter-spacing:.18em; text-transform:uppercase; }
+    .footer-col a { display:block; width:max-content; margin:0 0 14px; color:rgba(255,255,255,.72); font-size:12px; }
+    .footer-col a:hover { color:var(--white); }
+    .footer-bottom { display:flex; justify-content:space-between; gap:20px; padding-top:25px; border-top:1px solid rgba(255,255,255,.14); color:rgba(255,255,255,.42); font-size:8px; letter-spacing:.12em; text-transform:uppercase; }
+
+    .lightbox { position:fixed; inset:0; z-index:110; display:grid; place-items:center; padding:30px; background:rgba(3,11,21,.95); opacity:0; visibility:hidden; transition:opacity .25s,visibility .25s; }
+    .lightbox.open { opacity:1; visibility:visible; }
+    .lightbox img { width:auto; max-width:min(900px,90vw); max-height:88vh; object-fit:contain; }
+    .lightbox-close { position:absolute; top:22px; right:22px; color:var(--white); }
+    .cart-drawer { position:fixed; top:0; right:0; z-index:120; width:min(420px,100%); height:100dvh; display:flex; flex-direction:column; padding:28px; background:var(--ivory); box-shadow:-20px 0 60px rgba(0,0,0,.18); transform:translateX(105%); transition:transform .35s var(--ease); }
+    .cart-drawer.open { transform:translateX(0); }
+    .cart-header { display:flex; align-items:center; justify-content:space-between; padding-bottom:22px; border-bottom:1px solid var(--line); }
+    .cart-header h2 { margin:0; color:var(--navy); font-family:"Italiana",Georgia,serif; font-size:31px; font-weight:400; }
+    .cart-items { flex:1; overflow:auto; padding:18px 0; }
+    .empty-cart { display:grid; place-items:center; height:100%; color:#68717a; font-size:12px; line-height:1.7; text-align:center; }
+    .cart-item { display:grid; grid-template-columns:72px 1fr auto; gap:14px; padding:14px 0; border-bottom:1px solid var(--line); }
+    .cart-item img { width:72px; height:86px; object-fit:cover; }
+    .cart-item h4 { margin:5px 0 7px; color:var(--navy); font-family:"Italiana",Georgia,serif; font-size:19px; font-weight:400; }
+    .cart-item p { margin:0 0 4px; color:#6a727a; font-size:9px; }
+    .remove-item { align-self:start; border:0; background:transparent; cursor:pointer; color:#7a7f84; }
+    .cart-footer { padding-top:19px; border-top:1px solid var(--line); }
+    .cart-total { display:flex; justify-content:space-between; margin-bottom:18px; color:var(--navy); font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
+    .cart-footer .button { width:100%; }
+    .toast { position:fixed; z-index:140; left:50%; bottom:28px; padding:13px 19px; color:var(--white); background:var(--navy); border:1px solid rgba(255,255,255,.15); font-size:10px; letter-spacing:.08em; transform:translate(-50%,30px); opacity:0; pointer-events:none; transition:transform .25s,opacity .25s; }
+    .toast.show { opacity:1; transform:translate(-50%,0); }
+
+    @media (max-width:1100px) {
+      .product-shell { grid-template-columns:1.18fr .82fr; }
+      .gallery { grid-template-columns:1fr; }
+      .gallery-item:first-child { grid-column:auto; }
+      .gallery-item { min-height:650px; }
+      .product-panel { padding:48px 34px; }
+      .recommendation-card { grid-template-columns:1fr; }
+      .recommendation-card .image { min-height:420px; }
+    }
+    @media (max-width:980px) {
+      .site-header { grid-template-columns:1fr auto; padding:0 24px; }
+      .desktop-nav { display:none; }
+      .menu-toggle { display:grid; }
+      .mobile-panel { position:fixed; inset:108px 0 0; z-index:70; display:flex; flex-direction:column; justify-content:center; padding:9vw; color:var(--white); background:var(--navy); transform:translateX(100%); transition:transform .35s var(--ease); }
+      .mobile-panel.open { transform:translateX(0); }
+      .mobile-panel a { padding:17px 0; border-bottom:1px solid rgba(255,255,255,.16); font-family:"Italiana",Georgia,serif; font-size:clamp(34px,8vw,52px); }
+      .mobile-panel small { margin-top:35px; color:var(--sand); font-size:9px; letter-spacing:.15em; text-transform:uppercase; }
+      .product-shell { display:block; }
+      .gallery { display:flex; overflow-x:auto; border-right:0; scroll-snap-type:x mandatory; }
+      .gallery-item,.gallery-item:first-child { flex:0 0 86vw; min-height:680px; scroll-snap-align:start; }
+      .product-panel { position:relative; top:auto; max-height:none; padding:75px 7vw; overflow:visible; }
+      .profile-section { grid-template-columns:1fr; }
+      .profile-data { border-left:0; border-top:1px solid var(--light-line); }
+      .ritual-grid { grid-template-columns:1fr 1fr; }
+      .ritual-item:nth-child(2) { border-right:0; }
+      .ritual-item:nth-child(-n+2) { border-bottom:1px solid var(--line); }
+      .recommendation-grid { grid-template-columns:1fr; }
+      .recommendation-card { grid-template-columns:.9fr 1.1fr; }
+      .footer-main { grid-template-columns:1fr 1fr; }
+      .footer-brand { grid-column:1 / -1; }
+    }
+    @media (max-width:640px) {
+      .announcement { height:28px; font-size:7px; }
+      .site-header { height:70px; padding:0 16px; }
+      .mobile-panel { inset:98px 0 0; }
+      .brand-copy { display:none; }
+      .header-actions { gap:4px; }
+      .breadcrumb { padding:17px 18px; overflow:hidden; white-space:nowrap; }
+      .gallery-item,.gallery-item:first-child { flex-basis:92vw; min-height:550px; }
+      .product-panel { padding:68px 24px; }
+      .product-panel h1 { font-size:67px; }
+      .buy-row { grid-template-columns:80px 1fr; }
+      .scent-journey { padding:90px 24px; }
+      .section-head { align-items:flex-start; flex-direction:column; }
+      .note-grid { grid-template-columns:1fr; }
+      .note-card { min-height:310px; border-right:0; border-bottom:1px solid var(--line); }
+      .note-card:last-child { border-bottom:0; }
+      .note-card h3 { margin-top:58px; }
+      .profile-copy,.profile-data { padding:85px 24px; }
+      .profile-row { grid-template-columns:87px 1fr 26px; gap:10px; }
+      .performance-grid { gap:8px; }
+      .performance-item strong { font-size:24px; }
+      .ritual { padding:90px 24px; }
+      .ritual-grid { grid-template-columns:1fr; }
+      .ritual-item,.ritual-item:nth-child(2) { min-height:210px; border-right:0; border-bottom:1px solid var(--line); }
+      .ritual-item:last-child { border-bottom:0; }
+      .recommendations { padding:90px 17px; }
+      .recommendation-grid { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; }
+      .recommendation-card { flex:0 0 86vw; display:block; min-height:0; scroll-snap-align:start; }
+      .recommendation-card .image { min-height:470px; }
+      .recommendation-copy { padding:35px 25px 42px; }
+      footer { padding:70px 24px 24px; }
+      .footer-main { grid-template-columns:1fr; gap:42px; }
+      .footer-brand { grid-column:auto; }
+      .footer-bottom { flex-direction:column; }
+    }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; } }
+  </style>
+</head>
+<body>
+  <div class="announcement">Complimentary Accra delivery on orders over GH₵ 1,500</div>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="TNH Collections home"><span class="brand-mark"><img src="assets/logo.jpeg" alt=""></span><span class="brand-copy"><strong>TNH Collections</strong><small>Accra · Ghana</small></span></a>
+    <nav class="desktop-nav" aria-label="Primary navigation"><a href="index.html">Home</a><a href="catalogue.html">Catalogue</a><a href="cloth-details.html">Cloth details</a><a class="active" href="perfume-details.html">Perfume details</a></nav>
+    <div class="header-actions"><button class="icon-button" aria-label="View catalogue" onclick="location.href='catalogue.html'"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="6.8"/><path d="m16 16 4.4 4.4"/></svg></button><button class="icon-button" aria-label="Open shopping bag" onclick="toggleCart(true)"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M5 8.5h14l-.8 12H5.8L5 8.5Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg><span class="cart-count" id="cartCount">0</span></button><button class="icon-button menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" onclick="toggleMenu()"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M3 7h18M3 17h18"/></svg></button></div>
+  </header>
+  <nav class="mobile-panel" id="mobileMenu" aria-label="Mobile navigation"><a href="index.html">Home</a><a href="catalogue.html">Catalogue</a><a href="cloth-details.html">Cloth details</a><a href="perfume-details.html" onclick="toggleMenu(false)">Perfume details</a><small>Contemporary African clothing & fragrance</small></nav>
+
+  <main>
+    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><a href="catalogue.html">Fragrance</a><span>/</span><span>Midnight Coast</span></div>
+    <section class="product-shell" aria-labelledby="product-title">
+      <div class="gallery" aria-label="Fragrance gallery">
+        <figure class="gallery-item" onclick="openLightbox('assets/navy-perfume.jpg','Midnight Coast fragrance concept')"><img src="assets/navy-perfume.jpg" alt="Deep navy fragrance bottle arranged on dark stone"><span class="gallery-index">01</span><span class="gallery-hint"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4 4M10.5 7.5v6M7.5 10.5h6"/></svg></span></figure>
+        <figure class="gallery-item product-only" onclick="openLightbox('assets/perfume-blue-mockup.webp','Midnight Coast bottle study')"><img src="assets/perfume-blue-mockup.webp" alt="Minimal blue square perfume bottle against draped fabric"><span class="gallery-index">02</span></figure>
+        <figure class="gallery-item product-only" onclick="openLightbox('assets/perfume-frosted-blue.jpg','Midnight Coast frosted bottle')"><img src="assets/perfume-frosted-blue.jpg" alt="Frosted deep blue perfume bottle with minimal detailing"><span class="gallery-index">03</span></figure>
+        <figure class="gallery-item" onclick="openLightbox('assets/perfume-product.jpg','Midnight Coast atmospheric presentation')"><img src="assets/perfume-product.jpg" alt="Blue-tinted perfume bottle on a softly lit pedestal"><span class="gallery-index">04</span></figure>
+      </div>
+
+      <aside class="product-panel">
+        <p class="eyebrow">TNH house fragrance · 01</p>
+        <h1 class="serif" id="product-title">Midnight <em>Coast.</em></h1>
+        <p class="product-subline">Eau de parfum · Woody aromatic</p>
+        <div class="product-price"><span id="currentPrice">GH₵ 680</span><small>Taxes included</small></div>
+        <p class="product-description">A deep, luminous fragrance inspired by the Atlantic after dusk—salt on warm skin, smoked cedar and a trail of rare oud.</p>
+        <div class="scent-tags"><span class="scent-tag">Woody</span><span class="scent-tag">Mineral</span><span class="scent-tag">Smoky</span><span class="scent-tag">Unisex</span></div>
+
+        <div class="choice-block"><div class="choice-head"><strong>Select size</strong><span id="sizeValue">75ml</span></div><div class="size-options"><button class="size-button" data-size="30ml" data-price="360">30ml<small>Travel</small></button><button class="size-button active" data-size="75ml" data-price="680">75ml<small>Signature</small></button><button class="size-button" data-size="100ml" data-price="850">100ml<small>Generous</small></button></div></div>
+        <div class="buy-row"><div class="quantity"><button aria-label="Decrease quantity" onclick="changeQuantity(-1)">−</button><span id="quantity">1</span><button aria-label="Increase quantity" onclick="changeQuantity(1)">+</button></div><button class="button gold" id="addButton" onclick="addToBag()">Add to bag · GH₵ 680</button></div>
+        <label class="sample-toggle"><input type="checkbox" id="sampleChoice"><span>Add a complimentary 2ml scent discovery sample to this order.</span></label>
+
+        <div class="accordions">
+          <div class="accordion open"><button class="accordion-button" aria-expanded="true"><span>The composition</span><span>+</span></button><div class="accordion-content" style="max-height:150px"><p>Bergamot and sea salt open into saffron, incense and mineral woods before settling into oud, cedar and smooth amber.</p></div></div>
+          <div class="accordion"><button class="accordion-button" aria-expanded="false"><span>Performance</span><span>+</span></button><div class="accordion-content"><ul><li>8–10 hours longevity</li><li>Moderate-to-strong projection</li><li>Best from late afternoon into evening</li></ul></div></div>
+          <div class="accordion"><button class="accordion-button" aria-expanded="false"><span>Ingredients</span><span>+</span></button><div class="accordion-content"><p>Alcohol denat., parfum, aqua, limonene, linalool, coumarin, citral and naturally derived aromatic compounds.</p></div></div>
+          <div class="accordion"><button class="accordion-button" aria-expanded="false"><span>Delivery & returns</span><span>+</span></button><div class="accordion-content"><p>Fragrance dispatches in 1–2 working days. Unopened bottles may be returned within 14 days. Complimentary Accra delivery applies above GH₵ 1,500.</p></div></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="scent-journey" aria-labelledby="journey-title"><div class="section-head"><div><p class="eyebrow">The composition</p><h2 class="serif" id="journey-title">From first light<br>to final trace.</h2></div><p>Midnight Coast unfolds in three deliberate movements, shifting from bright mineral freshness into a warm, resonant drydown.</p></div><div class="note-grid"><article class="note-card"><span class="note-number">01</span><span class="note-symbol"></span><h3>Top notes</h3><p>A sharp flash of citrus meets the cool mineral character of sea air.</p><div class="note-list">Bergamot · Grapefruit<br>Sea salt · Pink pepper</div></article><article class="note-card"><span class="note-number">02</span><span class="note-symbol"></span><h3>Heart notes</h3><p>Warm spice and smoke surface slowly, giving the fragrance its quiet tension.</p><div class="note-list">Saffron · Incense<br>Clary sage · Violet leaf</div></article><article class="note-card"><span class="note-number">03</span><span class="note-symbol"></span><h3>Base notes</h3><p>A long, polished trail of dark woods settles close to the skin.</p><div class="note-list">Oud · Smoked cedar<br>Amber · Soft musk</div></article></div></section>
+
+    <section class="profile-section" aria-labelledby="profile-title"><div class="profile-copy"><p class="eyebrow">Scent profile</p><h2 class="serif" id="profile-title">Deep, but<br>never heavy.</h2><p>Made for warm air and evening light, Midnight Coast balances intensity with space. The mineral opening keeps the woods lucid; the amber base keeps them close.</p><div class="performance-grid"><div class="performance-item"><strong>8–10h</strong><span>Expected<br>longevity</span></div><div class="performance-item"><strong>EDP</strong><span>22% aromatic<br>concentration</span></div><div class="performance-item"><strong>75ml</strong><span>Signature<br>presentation</span></div></div></div><div class="profile-data"><div class="profile-row"><span>Fresh</span><div class="profile-track"><div class="profile-fill" style="--value:68%"></div></div><strong>68</strong></div><div class="profile-row"><span>Woody</span><div class="profile-track"><div class="profile-fill" style="--value:88%"></div></div><strong>88</strong></div><div class="profile-row"><span>Smoky</span><div class="profile-track"><div class="profile-fill" style="--value:61%"></div></div><strong>61</strong></div><div class="profile-row"><span>Warm</span><div class="profile-track"><div class="profile-fill" style="--value:76%"></div></div><strong>76</strong></div><div class="profile-row"><span>Sweet</span><div class="profile-track"><div class="profile-fill" style="--value:32%"></div></div><strong>32</strong></div></div></section>
+
+    <section class="ritual" aria-labelledby="ritual-title"><div class="section-head"><div><p class="eyebrow">The wearing ritual</p><h2 class="serif" id="ritual-title">Where it belongs.</h2></div><p>Composed to become part of the person wearing it, rather than arriving before them.</p></div><div class="ritual-grid"><article class="ritual-item"><span>01 · Time</span><h3>After four</h3><p>The woods bloom as the day cools, carrying easily from late afternoon into night.</p></article><article class="ritual-item"><span>02 · Place</span><h3>Open air</h3><p>Salt and bergamot stay vivid outdoors, while the deeper notes develop with warmth.</p></article><article class="ritual-item"><span>03 · Application</span><h3>Pulse points</h3><p>Two to four sprays across neck, wrist and chest. Do not rub the fragrance into skin.</p></article><article class="ritual-item"><span>04 · Mood</span><h3>Quiet presence</h3><p>Best when the aim is to be remembered without asking for the room's attention.</p></article></div></section>
+
+    <section class="recommendations" aria-labelledby="recommend-title"><div class="section-head"><div><p class="eyebrow">From the fragrance wardrobe</p><h2 class="serif" id="recommend-title">Continue the ritual.</h2></div><a class="button" href="catalogue.html">View all fragrances</a></div><div class="recommendation-grid"><article class="recommendation-card"><div class="image"><img src="assets/catalogue-amber-perfume.webp" alt="Golden Hour amber fragrance bottle" loading="lazy"></div><div class="recommendation-copy"><p class="eyebrow">Warm amber · 75ml</p><h3>Golden Hour</h3><p>Spiced citrus, smooth leather and sandalwood lit by a generous amber heart.</p><span class="recommendation-price">GH₵ 640</span><button class="button" onclick="addSuggested('Golden Hour',640,'assets/catalogue-amber-perfume.webp','75ml')">Add to bag</button></div></article><article class="recommendation-card"><div class="image"><img src="assets/catalogue-gold-perfume.jpg" alt="Sankofa Oud fragrance bottle" loading="lazy"></div><div class="recommendation-copy"><p class="eyebrow">Parfum extrait · 50ml</p><h3>Sankofa Oud</h3><p>Concentrated oud, cacao husk and incense with a dark, ceremonial trail.</p><span class="recommendation-price">GH₵ 820</span><button class="button" onclick="addSuggested('Sankofa Oud',820,'assets/catalogue-gold-perfume.jpg','50ml')">Add to bag</button></div></article></div></section>
+  </main>
+
+  <footer><div class="footer-main"><div class="footer-brand"><h2 class="serif">Wear the story<br>before you tell it.</h2><p>Join the private list for collection releases, studio appointments and first access to limited fragrance.</p><form class="subscribe" onsubmit="subscribe(event)"><input type="email" required placeholder="Your email address" aria-label="Email address"><button aria-label="Subscribe"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></button></form></div><div class="footer-col"><h3>Explore</h3><a href="catalogue.html">Catalogue</a><a href="cloth-details.html">Custom clothing</a><a href="perfume-details.html">Fine fragrance</a><a href="index.html">Our story</a></div><div class="footer-col"><h3>Connect</h3><a href="https://www.instagram.com/tnh.collections/" target="_blank" rel="noreferrer">Instagram</a><a href="tel:+233240581832">+233 24 058 1832</a><a href="mailto:hello@tnhcollections.com">Email the studio</a><a href="index.html">Accra, Ghana</a></div></div><div class="footer-bottom"><span>© 2026 TNH Collections. Prototype experience.</span><span>Contemporary authentic · Made in Ghana</span></div></footer>
+
+  <div class="lightbox" id="lightbox" onclick="lightboxClick(event)"><button class="icon-button lightbox-close" aria-label="Close image" onclick="closeLightbox()"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="m5 5 14 14M19 5 5 19"/></svg></button><img id="lightboxImage" src="" alt=""></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping bag" aria-hidden="true"><div class="cart-header"><h2>Your bag</h2><button class="icon-button" aria-label="Close shopping bag" onclick="toggleCart(false)"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="m5 5 14 14M19 5 5 19"/></svg></button></div><div class="cart-items" id="cartItems"><div class="empty-cart">Your bag is waiting.<br>Choose something distinctly yours.</div></div><div class="cart-footer"><div class="cart-total"><span>Subtotal</span><span id="cartTotal">GH₵ 0</span></div><button class="button" onclick="showToast('Secure checkout will connect to your payment gateway')">Proceed to checkout</button></div></aside>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let quantity=1, selectedSize='75ml', selectedPrice=680, toastTimer;
+    const cart=[];
+    const money=value=>`GH₵ ${value.toLocaleString()}`;
+
+    document.querySelectorAll('.size-button').forEach(button=>button.addEventListener('click',()=>{ document.querySelectorAll('.size-button').forEach(item=>item.classList.remove('active')); button.classList.add('active'); selectedSize=button.dataset.size; selectedPrice=Number(button.dataset.price); document.getElementById('sizeValue').textContent=selectedSize; document.getElementById('currentPrice').textContent=money(selectedPrice); document.getElementById('addButton').textContent=`Add to bag · ${money(selectedPrice)}`; }));
+    document.querySelectorAll('.accordion-button').forEach(button=>button.addEventListener('click',()=>{ const accordion=button.parentElement; const content=button.nextElementSibling; const open=accordion.classList.toggle('open'); button.setAttribute('aria-expanded',String(open)); content.style.maxHeight=open?`${content.scrollHeight}px`:'0'; }));
+
+    function changeQuantity(delta){ quantity=Math.max(1,Math.min(5,quantity+delta)); document.getElementById('quantity').textContent=quantity; }
+    function addToBag(){ const sample=document.getElementById('sampleChoice').checked?' · Discovery sample included':''; for(let i=0;i<quantity;i++) cart.push({name:'Midnight Coast',price:selectedPrice,image:'assets/navy-perfume.jpg',meta:`${selectedSize}${sample}`}); renderCart(); showToast(`${quantity} × Midnight Coast added to your bag`); }
+    function addSuggested(name,price,image,size){ cart.push({name,price,image,meta:size}); renderCart(); showToast(`${name} added to your bag`); }
+    function removeFromCart(index){ const removed=cart.splice(index,1)[0]; renderCart(); showToast(`${removed.name} removed`); }
+    function renderCart(){ const count=document.getElementById('cartCount'); count.textContent=cart.length; count.classList.toggle('visible',cart.length>0); document.getElementById('cartTotal').textContent=money(cart.reduce((sum,item)=>sum+item.price,0)); document.getElementById('cartItems').innerHTML=cart.length?cart.map((item,index)=>`<article class="cart-item"><img src="${item.image}" alt=""><div><h4>${item.name}</h4><p>${item.meta}</p><p>${money(item.price)}</p></div><button class="remove-item" aria-label="Remove ${item.name}" onclick="removeFromCart(${index})">×</button></article>`).join(''):'<div class="empty-cart">Your bag is waiting.<br>Choose something distinctly yours.</div>'; }
+    function toggleCart(open){ document.getElementById('cartDrawer').classList.toggle('open',open); document.getElementById('cartDrawer').setAttribute('aria-hidden',String(!open)); document.body.classList.toggle('no-scroll',open); }
+    function openLightbox(src,alt){ document.getElementById('lightboxImage').src=src; document.getElementById('lightboxImage').alt=alt; document.getElementById('lightbox').classList.add('open'); document.body.classList.add('no-scroll'); }
+    function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); document.body.classList.remove('no-scroll'); }
+    function lightboxClick(event){ if(event.target.id==='lightbox') closeLightbox(); }
+    function toggleMenu(force){ const menu=document.getElementById('mobileMenu'); const open=typeof force==='boolean'?force:!menu.classList.contains('open'); menu.classList.toggle('open',open); document.getElementById('menuToggle').setAttribute('aria-expanded',String(open)); document.body.classList.toggle('no-scroll',open); }
+    function subscribe(event){ event.preventDefault(); event.currentTarget.reset(); showToast('Welcome to the TNH private list'); }
+    function showToast(message){ const toast=document.getElementById('toast'); toast.textContent=message; toast.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>toast.classList.remove('show'),2800); }
+    document.addEventListener('keydown',event=>{ if(event.key!=='Escape') return; closeLightbox(); toggleCart(false); toggleMenu(false); });
+  </script>
+</body>
+</html>
